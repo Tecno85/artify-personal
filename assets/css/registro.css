@@ -1,238 +1,486 @@
-/*  Fuente personalizada Anek Latin */
+/* Importar fuentes */
 @font-face {
-  font-family: 'Anek latin';
-  src: url(../assets/fonts/Anek_Latin/AnekLatin-VariableFont_wdth\wght.ttf)
-    format('truetype');
-  font-weight: 100 900;
-  font-style: normal;
+  font-family: 'Paytone One';
+  src: url(../fonts/Paytone_One/PaytoneOne-Regular.ttf) format('truetype');
+  font-weight: 700;
 }
 
-/* Reset básico - box-sizing y limpieza de margenes */
+@font-face {
+  font-family: 'Inconsolata';
+  src: url(../fonts/Inconsolata/Inconsolata-VariableFont_wdth_wght.ttf)
+    format('truetype');
+}
+
+/* Variables CSS */
+:root {
+  --primary: #007bff;
+  --secondary: #28ffce;
+  --background-dark: #151515;
+  --text-light: #f5f5f5;
+  --border: rgba(255, 255, 255, 0.1);
+  --error: #e34800;
+  --success: #10b981;
+  --warning: #f59e0b;
+}
+
+/* Reset */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-/* Body centrado con altura completa */
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #eaefef;
-  font-family: 'Anek latin', sans-serif;
-  min-height: 100vh;
-  padding: 20px 0;
-    background: #959696b4;
-  border-radius: 0.5rem;
-}
-
-/* Layout Principal */
-
-/* Contenedor principal - con tarjeta oscura centrada */
+/* Contenedor */
 .container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: rgb(39, 39, 38);
-  border-radius: 0.5rem;
-  width: 500px;
-  min-height: 600px;
-  color: aliceblue;
-  gap: 40px;
-  padding: 30px 0px 50px;
+  min-height: 100vh;
+  padding: 40px;
+  background: var(--background-dark);
+  color: var(--text-light);
+  font-family: 'Inconsolata', sans-serif;
 }
 
-/* Contenido centrado */
-.align {
+/* ========== HEADER (igual que login) ========== */
+header {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+  padding: 20px 40px;
+  /* background: rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid var(--border);
+  border-radius: 8px;
+  margin-bottom: 60px; */
 }
 
-/* Header */
-
-.header img {
-  width: 25%;
+.header-img {
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 
-.header h1 {
-  color: rgb(40, 252, 206);
-  font-size: 2rem;
-  margin-bottom: 5px;
+.header-img img {
+  width: 30px;
 }
 
-.header p {
-  font-size: 0.9rem;
+.header-img p {
+  font-size: 1.1rem;
+  letter-spacing: 1px;
 }
 
-/* Contenido Principal */
+.btn-volver {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-light);
+  text-decoration: none;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  transition: all 0.5s ease;
+}
+
+.btn-volver:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid #e34800;
+  /* border-color: #e34800; */
+  transform: translateX(-5px);
+}
+
+/* ========== MAIN ========== */
 main {
+  flex: 1;
   display: flex;
-  flex-direction: column;
-  gap: 20px;
-  width: 300px;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
 }
 
-/* Formulario */
+/* ========== CARD REGISTRO ========== */
+.registro-card {
+  width: 100%;
+  max-width: 600px; /* Más ancho que login */
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 50px 40px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* Logo Section */
+.logo-section {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.logo {
+  width: 80px;
+  margin-bottom: 20px;
+}
+
+.registro-card h1 {
+  font-family: 'Paytone One', sans-serif;
+  font-size: 2.5rem;
+  color: var(--text-light);
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1rem;
+}
+
+/* ========== FORMULARIO ========== */
 form {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 30px;
 }
 
-.input-group {
+/* Secciones del formulario */
+.form-section {
   display: flex;
   flex-direction: column;
+  gap: 20px;
+  padding: 25px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
   gap: 10px;
+  font-size: 1.3rem;
+  color: var(--text-light);
+  font-family: 'Paytone One', sans-serif;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--border);
 }
 
-/* Contenedor para el input de contraseña - necesario para posicionar el icono del ojo  */
-.password-wrapper {
-  position: relative;
-  width: 100%;
-}
-
-/* Inputs */
-input::placeholder {
-  color: #eeeeee;
-  opacity: 0.5;
-}
-
-/* Estilos compartidos para inputs con iconos */
-
-.input-icon-user,
-.input-icon-email,
-.input-icon-password,
-.input-icon-id,
-.input-icon-calendar {
-  background-repeat: no-repeat;
-  background-position: 10px center;
-  background-size: 18px;
-  padding-left: 45px;
-}
-
-/* Iconos específicos para cada tipo de input */
-
-.input-icon-user {
-  background-image: url(../assets/icons/person.svg);
-}
-
-.input-icon-email {
-  background-image: url(../assets/icons/mail.svg);
-}
-
-.input-icon-id {
-  background-image: url(../assets/icons/id.svg);
-}
-
-.input-icon-password {
-  background-image: url(../assets/icons/lock.svg);
-}
-
-.input-icon-calendar {
-  background-image: url(../assets/icons/calendar.svg);
-}
-
-/* Labels */
-
-label {
-  display: block;
+.section-title img {
+  width: 24px;
 }
 
 /* Asterisco rojo para campos obligatorios */
 .label-required::after {
   content: '*';
-  color: rgb(255, 0, 0);
+  color: #e34800;
   margin-left: 5px;
-  font-size: 1.1rem;
+  font-size: 1rem;
 }
 
-/* Estilos base de inputs */
-input {
-  border-radius: 0.5rem;
-  border: none;
-  height: 37px;
-  color: rgb(253, 253, 253);
-  background: rgb(93, 92, 93);
+/* Form Groups */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-light);
+}
+
+.form-group input {
   width: 100%;
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-light);
+  font-family: 'Inconsolata', sans-serif;
+  font-size: 1rem;
+  transition: all 0.3s ease;
 }
 
-/* Icono para mostrar/ocultar contraseña */
-.eye-icon {
+.form-group input:focus {
+  outline: none;
+  border-color: var(--secondary);
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 0 0 3px rgba(40, 255, 206, 0.1);
+}
+
+.form-group input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* Form Row (2 columnas) */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* Password Wrapper */
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-wrapper input {
+  padding-right: 50px;
+}
+
+.toggle-password {
   position: absolute;
-  bottom: 8px;
-  right: 20px;
+  right: 12px;
+  background: none;
+  border: none;
   cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  transition: transform 0.2s ease;
+}
+
+.toggle-password:hover {
+  transform: scale(1.1);
+}
+
+.toggle-password img {
+  width: 24px;
+  filter: invert(1);
+}
+
+/* ========== INDICADOR DE FORTALEZA ========== */
+.password-strength {
+  margin-top: 8px;
+}
+
+.strength-bar {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 5px;
+}
+
+.strength-fill {
+  height: 100%;
+  width: 0%;
+  transition: all 0.3s ease;
+  border-radius: 4px;
+}
+
+.strength-fill.weak {
+  width: 33%;
+  background: var(--error);
+}
+
+.strength-fill.medium {
+  width: 66%;
+  background: var(--warning);
+}
+
+.strength-fill.strong {
+  width: 100%;
+  background: var(--success);
+}
+
+.strength-text {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.strength-text.weak {
+  color: var(--error);
+}
+
+.strength-text.medium {
+  color: var(--warning);
+}
+
+.strength-text.strong {
+  color: var(--success);
+}
+
+/* Helper Text */
+.helper-text {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 5px;
+}
+
+/* Mensajes de error */
+.error-message {
+  display: none;
+  color: var(--error);
+  font-size: 0.85rem;
+  margin-top: 5px;
+}
+
+.error-message.show {
+  display: block;
+}
+
+.form-group input.error {
+  border-color: var(--error);
+}
+
+/* ========== CHECKBOX TÉRMINOS ========== */
+.form-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.checkbox-label input[type='checkbox'] {
   width: 20px;
   height: 20px;
-  opacity: 0.7;
-  transition: opacity 0.2s;
+  cursor: pointer;
+  accent-color: var(--primary);
 }
 
-.eye-icon:hover {
-  opacity: 1;
+.checkbox-label span {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.8);
 }
 
-/* Botones */
+.link-inline {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+}
 
-.buttons {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
+.link-inline:hover {
+  text-decoration: underline;
+}
+
+/* ========== BOTONES ========== */
+.btn-primary {
+  width: 100%;
+  padding: 16px;
+  background: var(--primary);
+  color: white;
+  font-family: 'Inconsolata', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
   margin-top: 10px;
 }
 
-button {
-  border-radius: 0.3rem;
-  height: 40px;
-  background: rgb(0, 123, 255);
-  color: #eeeeee;
+.btn-primary:hover {
+  background: #0056b3;
+  transform: translateY(-2px);
+  /* box-shadow: 0 8px 20px rgba(0, 123, 255, 0.4); */
+}
+
+.btn-primary:disabled {
+  background: rgba(0, 123, 255, 0.5);
+  cursor: not-allowed;
+}
+
+.buttons-row {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.btn-secondary {
+  flex: 1;
+  padding: 14px;
+  background: transparent;
+  color: var(--text-light);
+  font-family: 'Inconsolata', sans-serif;
   font-size: 1rem;
   font-weight: 600;
-  border: none;
+  border: 1px solid var(--border);
+  border-radius: 8px;
   cursor: pointer;
-  transition: background 0.3s ease;
-  min-width: 120px;
+  transition: all 0.3s ease;
 }
 
-button a {
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--text-light);
+}
+
+/* ========== LINK LOGIN ========== */
+.login-link {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.login-link p {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.95rem;
+}
+
+.login-link a {
+  color: var(--primary);
   text-decoration: none;
-  color: #eeeeee;
-}
-
-/* Botón secundario para cancelar  */
-
-.cancelar {
-  background: #eeeeee;
-  color: rgb(39, 39, 38);
-}
-
-/* Footer */
-
-footer {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  color: #e0e0e0;
   font-weight: 600;
-  font-size: 0.9rem;
+  transition: all 0.3s ease;
 }
 
-footer a {
-  color: #e0e0e0;
+.login-link a:hover {
+  color: var(--primary);
   text-decoration: none;
+  font-weight: 600;
 }
 
-.icon {
+.login-link a:hover {
+  text-decoration: underline;
+}
+
+/* ========== FOOTER ========== */
+footer {
+  margin-top: 40px;
+  padding-top: 30px;
+  font-family: 'Inconsolata', sans-serif;
+  /* border-top: 1px solid rgba(255, 255, 255, 0.1); */
+  /* border: 2px solid greenyellow; */
+}
+
+footer p {
   display: flex;
   justify-content: center;
+  align-items: center;
+  letter-spacing: 1.2px;
+  font-size: 1rem;
+  padding: 2.5px;
+  /* border: 4px solid greenyellow; */
 }
 
-.github {
-  display: flex;
-  align-items: center;
+p img {
+  padding: 0px 5px;
+}
+
+p b {
+  padding: 2px;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+  .registro-card {
+    padding: 40px 25px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  header {
+    flex-direction: column;
+    gap: 15px;
+  }
 }
