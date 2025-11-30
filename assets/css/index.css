@@ -20,6 +20,10 @@
   padding: 0;
 }
 
+body {
+  background: #151515;
+}
+
 /* Contenedor principal */
 .container {
   display: flex;
@@ -211,4 +215,41 @@ p img {
 
 p b {
   padding: 2px;
+}
+
+/* Responsive */
+
+@media (max-width: 768px) {
+  header {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .enlaces {
+    gap: 5px;
+  }
+
+  main {
+    gap: 40px;
+  }
+
+  .bienvenida img {
+    width: 90px;
+  }
+
+  .bienvenida h1 {
+    font-size: 2.5rem;
+  }
+
+  .cards {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  footer {
+    margin-top: 0px;
+    padding-top: 0px;
+  }
 }

@@ -120,7 +120,6 @@ header {
 
 .btn-icon img {
   width: 22px;
-  /* filter: invert(1); */
 }
 
 /* ========== MAIN LAYOUT (3 COLUMNAS) ========== */
@@ -189,7 +188,6 @@ header {
 
 .tool-btn img {
   width: 24px;
-  /* filter: invert(1); */
 }
 
 .tool-btn kbd {
@@ -290,7 +288,6 @@ header {
   width: 90px;
   height: 90px;
   margin-bottom: 20px;
-  /* filter: invert(1); */
   opacity: 0.6;
 }
 
@@ -612,7 +609,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 30px;
+  padding: 30px 30px;
   background: var(--background-darker);
   border-top: 1px solid var(--border);
   height: 50px;
@@ -628,12 +625,11 @@ header {
 
 .status-item img {
   width: 24px;
-  /* filter: invert(1); */
   opacity: 0.7;
 }
 
 .status-indicator {
-  padding: 4px 12px;
+  padding: 6px 12px;
   background: var(--panel-bg);
   border: 1px solid var(--border);
   border-radius: 6px;
@@ -720,101 +716,6 @@ header {
   to {
     transform: rotate(360deg);
   }
-}
-
-/* ========== TEMA CLARO (Opcional) ========== */
-body.light-theme {
-  /* Fondos más oscuros, menos brillantes */
-  --background-dark: #84b1f6; /* Gris medio claro (más oscuro) */
-  --background-darker: #98bcf6; /* Gris medio (paneles más definidos) */
-
-  /* Textos con buen contraste */
-  --text-light: #1f2937; /* Gris muy oscuro */
-  --text-secondary: rgba(0, 0, 0, 0.65); /* Textos secundarios visibles */
-
-  /* Bordes más visibles */
-  --border: rgba(0, 0, 0, 0.12); /* Bordes más definidos */
-
-  /* Paneles con fondo ligeramente más oscuro */
-  --panel-bg: rgba(0, 0, 0, 0.04); /* Fondo de paneles más visible */
-}
-
-/* Iconos en tema claro - más oscuros */
-body.light-theme .btn-icon img,
-body.light-theme .tool-btn img,
-body.light-theme .drop-icon,
-body.light-theme .zoom-btn img,
-body.light-theme .status-item img {
-  filter: invert(0.15) brightness(0.4); /* Iconos más oscuros */
-}
-
-/* Canvas con más sombra */
-body.light-theme #mainCanvas {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-}
-
-/* Notificaciones con fondo menos brillante */
-body.light-theme .notification {
-  background: #73b3f4;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
-}
-
-/* Status bar menos brillante */
-body.light-theme .status-bar {
-  background: #5191f9;
-  border-top: 1px solid rgba(0, 0, 0, 0.12);
-}
-
-/* Header menos brillante */
-body.light-theme header {
-  background: #2e7cfb;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-}
-
-/* Drop zone menos brillante */
-body.light-theme .drop-zone {
-  background: rgba(0, 0, 0, 0.04);
-  border-color: rgba(0, 0, 0, 0.2);
-}
-
-body.light-theme .drop-zone:hover {
-  background: rgba(0, 123, 255, 0.05);
-  border-color: var(--primary);
-}
-
-/* Botones y controles menos brillantes */
-body.light-theme .tool-btn {
-  background: rgba(0, 0, 0, 0.05);
-}
-
-body.light-theme .tool-btn:hover:not(:disabled) {
-  background: rgba(0, 0, 0, 0.08);
-}
-
-body.light-theme .btn-icon {
-  background: rgba(0, 0, 0, 0.05);
-}
-
-body.light-theme .btn-icon:hover {
-  background: rgba(0, 0, 0, 0.1);
-}
-
-/* Inputs menos brillantes */
-body.light-theme .select-input,
-body.light-theme .number-input {
-  background: rgba(0, 0, 0, 0.06);
-  border: 1px solid rgba(0, 0, 0, 0.15);
-}
-
-body.light-theme .select-input:focus,
-body.light-theme .number-input:focus {
-  background: rgba(0, 0, 0, 0.08);
-}
-
-/* Propiedades section menos brillante */
-body.light-theme .properties-section {
-  background: rgba(0, 0, 0, 0.04);
-  border: 1px solid rgba(0, 0, 0, 0.12);
 }
 
 /* ========== SISTEMA DE NOTIFICACIONES ========== */
