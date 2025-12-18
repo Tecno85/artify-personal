@@ -309,6 +309,255 @@
       </footer>
     </div>
 
+    <!-- ========== MODAL DE ADVERTENCIA DE RESOLUCIÓN ========== -->
+    <div id="modalResolucion" class="modal-resolucion" style="display: none">
+      <div class="modal-resolucion-content">
+        <div class="modal-resolucion-icon">⚠️</div>
+        <h2 class="modal-resolucion-title">Resolución no recomendada</h2>
+        <p class="modal-resolucion-message">
+          Artify está optimizado para dispositivos con una resolución mínima de
+          <strong>1024 x 768 píxeles</strong>.
+        </p>
+        <div class="modal-resolucion-info">
+          <p>
+            <strong>Tu resolución actual:</strong>
+            <span id="resolucionActual">-</span>
+          </p>
+          <p><strong>Resolución recomendada:</strong> 1024 x 768 o superior</p>
+        </div>
+        <p class="modal-resolucion-suggestion">
+          Para una mejor experiencia, te recomendamos:
+        </p>
+        <ul class="modal-resolucion-list">
+          <li>Usar un computador de escritorio o laptop</li>
+          <li>Usar una tablet grande en modo horizontal (iPad, Galaxy Tab)</li>
+          <li>Aumentar el zoom de tu navegador si usas un monitor pequeño</li>
+        </ul>
+        <div class="modal-resolucion-actions">
+          <button class="btn-modal-primary" onclick="cerrarModalResolucion()">
+            Entendido, continuar de todos modos
+          </button>
+          <button class="btn-modal-secondary" onclick="noVolverAMostrar()">
+            No volver a mostrar este mensaje
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== MODAL DE CONFIGURACIÓN (RF-10) ========== -->
+    <div id="modalConfiguracion" class="modal-config" style="display: none">
+      <div class="modal-config-content">
+        <div class="modal-config-header">
+          <h2 class="modal-config-title">⚙️ Configuración</h2>
+          <button
+            class="modal-config-close"
+            id="btnCerrarConfig"
+            aria-label="Cerrar"
+          >
+            ✕
+          </button>
+        </div>
+
+        <div class="modal-config-body">
+          <!-- Sección: Preferencias de Interfaz -->
+          <section class="config-section">
+            <h3 class="config-section-title">
+              <img src="../assets/icons/sliders.svg" alt="Interfaz" />
+              Preferencias de Interfaz
+            </h3>
+
+            <div class="config-item">
+              <label for="configTema" class="config-label">Tema:</label>
+              <select id="configTema" class="config-select">
+                <option value="dark">Oscuro</option>
+                <option value="light">Claro</option>
+              </select>
+            </div>
+
+            <div class="config-item">
+              <label for="configIdioma" class="config-label">Idioma:</label>
+              <select id="configIdioma" class="config-select">
+                <option value="es">Español</option>
+                <option value="en">English</option>
+              </select>
+            </div>
+
+            <div class="config-item">
+              <label class="config-label">
+                <input
+                  type="checkbox"
+                  id="configAtajos"
+                  class="config-checkbox"
+                />
+                <span>Habilitar atajos de teclado</span>
+              </label>
+            </div>
+
+            <div class="config-item">
+              <label class="config-label">
+                <input
+                  type="checkbox"
+                  id="configNotificaciones"
+                  class="config-checkbox"
+                />
+                <span>Mostrar notificaciones</span>
+              </label>
+            </div>
+          </section>
+
+          <!-- Sección: Preferencias de Editor -->
+          <section class="config-section">
+            <h3 class="config-section-title">
+              <img src="../assets/icons/picture.svg" alt="Editor" />
+              Preferencias de Editor
+            </h3>
+
+            <div class="config-item">
+              <label for="configCalidadExportacion" class="config-label"
+                >Calidad de exportación:</label
+              >
+              <select id="configCalidadExportacion" class="config-select">
+                <option value="alta">Alta (100%)</option>
+                <option value="media">Media (80%)</option>
+                <option value="baja">Baja (60%)</option>
+              </select>
+            </div>
+
+            <div class="config-item">
+              <label for="configFormatoDefecto" class="config-label"
+                >Formato por defecto:</label
+              >
+              <select id="configFormatoDefecto" class="config-select">
+                <option value="png">PNG</option>
+                <option value="jpeg">JPEG</option>
+              </select>
+            </div>
+
+            <div class="config-item">
+              <label class="config-label">
+                <input
+                  type="checkbox"
+                  id="configAutoguardado"
+                  class="config-checkbox"
+                />
+                <span>Activar autoguardado</span>
+              </label>
+            </div>
+          </section>
+
+          <!-- Sección: Información de Usuario -->
+          <section class="config-section">
+            <h3 class="config-section-title">
+              <img src="../assets/icons/user.svg" alt="Usuario" />
+              Información de Usuario
+            </h3>
+
+            <div class="config-user-info">
+              <p>
+                <strong>Nombre:</strong> <span id="configUserNombre">-</span>
+              </p>
+              <p><strong>Email:</strong> <span id="configUserEmail">-</span></p>
+              <p>
+                <strong>Última sesión:</strong>
+                <span id="configUserUltimaSesion">-</span>
+              </p>
+            </div>
+          </section>
+        </div>
+
+        <div class="modal-config-footer">
+          <button class="btn-config-secondary" id="btnCancelarConfig">
+            Cancelar
+          </button>
+          <button class="btn-config-primary" id="btnGuardarConfig">
+            Guardar Cambios
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== MODAL DE PERFIL / CERRAR SESIÓN (RF-11) ========== -->
+    <div id="modalPerfil" class="modal-perfil" style="display: none">
+      <div class="modal-perfil-content">
+        <div class="modal-perfil-header">
+          <h2 class="modal-perfil-title">👤 Mi Perfil</h2>
+          <button
+            class="modal-perfil-close"
+            id="btnCerrarPerfil"
+            aria-label="Cerrar"
+          >
+            ✕
+          </button>
+        </div>
+
+        <div class="modal-perfil-body">
+          <div class="perfil-avatar">
+            <img
+              src="../assets/icons/wmr.svg"
+              alt="Avatar"
+              class="perfil-avatar-img"
+            />
+          </div>
+
+          <div class="perfil-info">
+            <h3 id="perfilNombre">Usuario Invitado</h3>
+            <p id="perfilEmail">invitado@artify.com</p>
+          </div>
+
+          <div class="perfil-stats">
+            <div class="perfil-stat">
+              <span class="perfil-stat-value" id="perfilImagenesEditadas"
+                >0</span
+              >
+              <span class="perfil-stat-label">Imágenes editadas</span>
+            </div>
+            <div class="perfil-stat">
+              <span class="perfil-stat-value" id="perfilOperaciones">0</span>
+              <span class="perfil-stat-label">Operaciones</span>
+            </div>
+            <div class="perfil-stat">
+              <span class="perfil-stat-value" id="perfilSesiones">1</span>
+              <span class="perfil-stat-label">Sesiones</span>
+            </div>
+          </div>
+
+          <div class="perfil-actions">
+            <button class="btn-perfil-config" id="btnAbrirConfigDesdePerfil">
+              <img src="../assets/icons/gear.svg" alt="Configuración" />
+              Configuración
+            </button>
+          </div>
+        </div>
+
+        <div class="modal-perfil-footer">
+          <button class="btn-perfil-logout" id="btnCerrarSesion">
+            <img src="../assets/icons/logout.svg" alt="Salir" />
+            Cerrar Sesión
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== MODAL DE CONFIRMACIÓN CERRAR SESIÓN ========== -->
+    <div id="modalConfirmarLogout" class="modal-confirm" style="display: none">
+      <div class="modal-confirm-content">
+        <div class="modal-confirm-icon">🚪</div>
+        <h2 class="modal-confirm-title">¿Cerrar sesión?</h2>
+        <p class="modal-confirm-message">
+          Estás a punto de cerrar tu sesión en Artify. Los cambios no guardados
+          se perderán.
+        </p>
+        <div class="modal-confirm-actions">
+          <button class="btn-confirm-cancel" id="btnCancelarLogout">
+            Cancelar
+          </button>
+          <button class="btn-confirm-primary" id="btnConfirmarLogout">
+            Cerrar Sesión
+          </button>
+        </div>
+      </div>
+    </div>
+
     <!-- JavaScript -->
     <script src="../assets/js/editor.js"></script>
   </body>
