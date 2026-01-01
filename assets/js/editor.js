@@ -20,6 +20,7 @@ let cropMode = false;
 let cropArea = { x: 0, y: 0, width: 0, height: 0 };
 let isDragging = false;
 let startX, startY;
+let cropRatio = 'free'; // Proporción actual del recorte
 
 // ========== CONSTANTES DE RESOLUCIÓN ==========
 const RESOLUCION_MINIMA_ANCHO = 1024;
@@ -653,6 +654,15 @@ window.addEventListener('DOMContentLoaded', () => {
     canvas.addEventListener('pointerdown', iniciarRecorte);
     canvas.addEventListener('pointermove', dibujarRecorte);
     canvas.addEventListener('pointerup', finalizarRecorte);
+
+    // Event listener para cambio de proporción
+    const cropRatioSelect = document.getElementById('cropRatio');
+    if (cropRatioSelect) {
+      cropRatioSelect.addEventListener('change', (e) => {
+        cropRatio = e.target.value;
+        console.log('📐 Proporción seleccionada:', cropRatio);
+      });
+    }
   }
 
   function iniciarRecorte(e) {
@@ -676,10 +686,87 @@ window.addEventListener('DOMContentLoaded', () => {
     const currentX = (e.clientX - rect.left) * scaleX;
     const currentY = (e.clientY - rect.top) * scaleY;
 
-    cropArea.x = Math.min(startX, currentX);
-    cropArea.y = Math.min(startY, currentY);
-    cropArea.width = Math.abs(currentX - startX);
-    cropArea.height = Math.abs(currentY - startY);
+    // Calcular dimensiones base
+    let width = Math.abs(currentX - startX);
+    let height = Math.abs(currentY - startY);
+
+    // Aplicar restricción de proporción ANTES de asignar a cropArea
+    if (cropRatio !== 'free' && width > 0 && height > 0) {
+      const ratios = {
+        '1:1': 1,
+        '16:9': 16 / 9,
+        '4:3': 4 / 3,
+        '3:2': 3 / 2,
+      };
+
+      const targetRatio = ratios[cropRatio];
+      if (targetRatio) {
+        const currentRatio = width / height;
+
+        // Ajustar dimensiones para mantener la proporción
+        if (currentRatio > targetRatio) {
+          // Ancho es demasiado grande, ajustar basándose en altura
+          width = height * targetRatio;
+        } else {
+          // Alto es demasiado grande, ajustar basándose en ancho
+          height = width / targetRatio;
+        }
+      }
+    }
+
+    // Calcular posición (respetando la dirección del arrastre)
+    let x, y;
+
+    if (currentX < startX) {
+      x = currentX;
+    } else {
+      x = startX;
+    }
+
+    if (currentY < startY) {
+      y = currentY;
+    } else {
+      y = startY;
+    }
+
+    // Verificar límites del canvas
+    if (x + width > canvas.width) {
+      width = canvas.width - x;
+      if (cropRatio !== 'free') {
+        const ratios = {
+          '1:1': 1,
+          '16:9': 16 / 9,
+          '4:3': 4 / 3,
+          '3:2': 3 / 2,
+        };
+        const targetRatio = ratios[cropRatio];
+        if (targetRatio) {
+          height = width / targetRatio;
+        }
+      }
+    }
+
+    if (y + height > canvas.height) {
+      height = canvas.height - y;
+      if (cropRatio !== 'free') {
+        const ratios = {
+          '1:1': 1,
+          '16:9': 16 / 9,
+          '4:3': 4 / 3,
+          '3:2': 3 / 2,
+        };
+        const targetRatio = ratios[cropRatio];
+        if (targetRatio) {
+          width = height * targetRatio;
+        }
+      }
+    }
+
+    // Asignar valores finales a cropArea
+    cropArea.x = x;
+    cropArea.y = y;
+    cropArea.width = width;
+    cropArea.height = height;
 
     redibujarConRecorte();
   }
@@ -694,9 +781,11 @@ window.addEventListener('DOMContentLoaded', () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(currentImage, 0, 0);
 
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+    // Oscurecer área fuera del recorte
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.6)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+    // Limpiar área de recorte
     ctx.clearRect(cropArea.x, cropArea.y, cropArea.width, cropArea.height);
     ctx.drawImage(
       currentImage,
@@ -710,9 +799,90 @@ window.addEventListener('DOMContentLoaded', () => {
       cropArea.height
     );
 
-    ctx.strokeStyle = '#28FFCE';
+    // ===== BORDE PRINCIPAL CON LÍNEAS PUNTEADAS =====
+    ctx.strokeStyle = '#FFFFFF';
     ctx.lineWidth = 2;
+    ctx.setLineDash([10, 5]); // Línea punteada: 10px línea, 5px espacio
     ctx.strokeRect(cropArea.x, cropArea.y, cropArea.width, cropArea.height);
+
+    // ===== GUÍAS DE TERCIOS (regla de los tercios) =====
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
+    ctx.lineWidth = 1;
+    ctx.setLineDash([5, 5]); // Líneas más sutiles
+
+    // Líneas verticales (dividir en 3 partes horizontalmente)
+    const tercioAncho = cropArea.width / 3;
+
+    // Primera línea vertical
+    ctx.beginPath();
+    ctx.moveTo(cropArea.x + tercioAncho, cropArea.y);
+    ctx.lineTo(cropArea.x + tercioAncho, cropArea.y + cropArea.height);
+    ctx.stroke();
+
+    // Segunda línea vertical
+    ctx.beginPath();
+    ctx.moveTo(cropArea.x + tercioAncho * 2, cropArea.y);
+    ctx.lineTo(cropArea.x + tercioAncho * 2, cropArea.y + cropArea.height);
+    ctx.stroke();
+
+    // Líneas horizontales (dividir en 3 partes verticalmente)
+    const tercioAlto = cropArea.height / 3;
+
+    // Primera línea horizontal
+    ctx.beginPath();
+    ctx.moveTo(cropArea.x, cropArea.y + tercioAlto);
+    ctx.lineTo(cropArea.x + cropArea.width, cropArea.y + tercioAlto);
+    ctx.stroke();
+
+    // Segunda línea horizontal
+    ctx.beginPath();
+    ctx.moveTo(cropArea.x, cropArea.y + tercioAlto * 2);
+    ctx.lineTo(cropArea.x + cropArea.width, cropArea.y + tercioAlto * 2);
+    ctx.stroke();
+
+    // ===== ESQUINAS DECORATIVAS (opcional pero profesional) =====
+    ctx.strokeStyle = '#28FFCE'; // Color cyan de tu tema
+    ctx.lineWidth = 3;
+    ctx.setLineDash([]); // Líneas sólidas para las esquinas
+
+    const esquinaSize = 20; // Tamaño de las esquinas
+
+    // Esquina superior izquierda
+    ctx.beginPath();
+    ctx.moveTo(cropArea.x, cropArea.y + esquinaSize);
+    ctx.lineTo(cropArea.x, cropArea.y);
+    ctx.lineTo(cropArea.x + esquinaSize, cropArea.y);
+    ctx.stroke();
+
+    // Esquina superior derecha
+    ctx.beginPath();
+    ctx.moveTo(cropArea.x + cropArea.width - esquinaSize, cropArea.y);
+    ctx.lineTo(cropArea.x + cropArea.width, cropArea.y);
+    ctx.lineTo(cropArea.x + cropArea.width, cropArea.y + esquinaSize);
+    ctx.stroke();
+
+    // Esquina inferior izquierda
+    ctx.beginPath();
+    ctx.moveTo(cropArea.x, cropArea.y + cropArea.height - esquinaSize);
+    ctx.lineTo(cropArea.x, cropArea.y + cropArea.height);
+    ctx.lineTo(cropArea.x + esquinaSize, cropArea.y + cropArea.height);
+    ctx.stroke();
+
+    // Esquina inferior derecha
+    ctx.beginPath();
+    ctx.moveTo(
+      cropArea.x + cropArea.width - esquinaSize,
+      cropArea.y + cropArea.height
+    );
+    ctx.lineTo(cropArea.x + cropArea.width, cropArea.y + cropArea.height);
+    ctx.lineTo(
+      cropArea.x + cropArea.width,
+      cropArea.y + cropArea.height - esquinaSize
+    );
+    ctx.stroke();
+
+    // Resetear líneas al estado normal
+    ctx.setLineDash([]);
   }
 
   document.getElementById('btnAplicarRecorte').addEventListener('click', () => {
