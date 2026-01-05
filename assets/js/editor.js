@@ -25,7 +25,7 @@ let startX, startY;
 let cropRatio = 'free'; // Proporción actual del recorte
 
 // ========== CONSTANTES DE RESOLUCIÓN ==========
-const RESOLUCION_MINIMA_ANCHO = 1024;
+const RESOLUCION_MINIMA_ANCHO = 1366;
 const RESOLUCION_MINIMA_ALTO = 768;
 const LOCAL_STORAGE_KEY = 'artify_no_mostrar_modal_resolucion';
 
@@ -126,8 +126,8 @@ function actualizarContadorOperaciones() {
 
 // ========== FUNCIONES DE RESOLUCIÓN ==========
 function verificarResolucion() {
-  const anchoVentana = window.innerWidth;
-  const altoVentana = window.innerHeight;
+  const anchoVentana = document.documentElement.clientWidth;
+  const altoVentana = document.documentElement.clientHeight;
   console.log(`🔍 Resolución detectada: ${anchoVentana} x ${altoVentana}px`);
 
   const noVolverAMostrarGuardado = sessionStorage.getItem(LOCAL_STORAGE_KEY);

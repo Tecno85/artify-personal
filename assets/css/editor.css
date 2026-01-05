@@ -28,10 +28,6 @@
 
 /* Utilidades Generales */
 
-.hidden {
-  display: none;
-}
-
 /* Reset */
 * {
   box-sizing: border-box;
@@ -1429,5 +1425,92 @@ header {
 
   .modal-resolucion-icon {
     font-size: 3rem;
+  }
+}
+
+/* ======================================================
+   MODO COMPACTO – 1366 × 768 (EDITOR DESKTOP)
+   ====================================================== */
+@media (max-width: 1366px) and (max-height: 768px) {
+  /* ================= BASE TIPOGRÁFICA ================= */
+  html {
+    font-size: 13.5px;
+  }
+
+  body {
+    line-height: 1.4;
+  }
+
+  /* ================= HEADER ================= */
+  header {
+    height: 70px;
+    padding: 10px 20px;
+    font-size: 1rem;
+  }
+
+  .header-left h1 {
+    font-size: 1.4rem;
+    font-weight: 600;
+  }
+
+  /* ================= LAYOUT ================= */
+  .editor-layout {
+    grid-template-columns: 180px 1fr 260px;
+  }
+
+  /* ================= PANELES ================= */
+  .panel-left,
+  .panel-right {
+    padding: 12px;
+    gap: 12px;
+    font-size: 0.9rem;
+    line-height: 1.45;
+  }
+
+  /* ================= BOTONES ================= */
+  .tool-btn {
+    padding: 10px 12px;
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+
+  .tool-btn img {
+    width: 20px;
+  }
+
+  /* ================= INPUTS ================= */
+  input,
+  select,
+  option {
+    font-size: 0.9rem;
+  }
+
+  /* ================= TEXTOS SECUNDARIOS ================= */
+  label,
+  .small-text {
+    font-size: 0.8rem;
+  }
+
+  /* ================= CANVAS ================= */
+  #mainCanvas {
+    max-height: calc(100vh - 180px);
+  }
+
+  .canvas-container {
+    padding: 12px;
+  }
+
+  /* ================= ZOOM CONTROLS ================= */
+  .zoom-controls {
+    padding: 8px 14px;
+    gap: 10px;
+    font-size: 0.85rem;
+  }
+
+  /* ================= STATUS BAR ================= */
+  .status-bar {
+    height: 40px;
+    padding: 10px 20px;
+    font-size: 0.8rem;
   }
 }
