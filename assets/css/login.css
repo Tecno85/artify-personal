@@ -16,7 +16,7 @@
   --primary: #007bff;
   --secondary: #28ffce;
   /* --background-dark: #1e1e1e; */
-  --background-dark: #151515;
+  --background-dark: #0a0a0a;
   --text-light: #f5f5f5;
   --border: rgba(255, 255, 255, 0.1);
   --error: #ef4444;
@@ -100,7 +100,7 @@ main {
 .login-card {
   width: 100%;
   max-width: 480px;
-  background: rgba(255, 255, 255, 0.05);
+  background: #161616;
   border: 1px solid var(--border);
   border-radius: 16px;
   padding: 50px 40px;

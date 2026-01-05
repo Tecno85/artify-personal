@@ -15,8 +15,8 @@
 :root {
   --primary: #007bff;
   --secondary: #28edff;
-  --background-dark: #1e1e1e;
-  --background-darker: #151515;
+  --background-dark: #161616;
+  --background-darker: #0a0a0a;
   --text-light: #f5f5f5;
   --text-secondary: rgba(255, 255, 255, 0.7);
   --border: rgba(255, 255, 255, 0.1);
