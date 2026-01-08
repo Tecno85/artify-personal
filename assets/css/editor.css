@@ -616,6 +616,7 @@ header {
   border-top: 1px solid var(--border);
   height: 50px;
   font-size: 0.9rem;
+  position: relative;
 }
 
 .status-item {
@@ -1348,16 +1349,15 @@ header {
 
 .modal-confirm-content {
   max-width: 450px;
-  padding: 40px;
+  padding: 35px;
   text-align: center;
 }
 
-.modal-confirm-icon {
-  font-size: 4rem;
-  margin-bottom: 20px;
-}
-
 .modal-confirm-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
   font-family: 'Paytone One', sans-serif;
   font-size: 1.8rem;
   color: var(--text-light);

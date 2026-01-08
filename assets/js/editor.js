@@ -545,7 +545,7 @@ window.addEventListener('DOMContentLoaded', () => {
             actualizarEstado('Listo', 'success');
             mostrarNotificacion(
               'success',
-              `✓ Imagen convertida a ${formatoDestino.toUpperCase()} (${tamanoKB} KB) - Calidad: ${calidadConversion}. Al descargar se guardará en este formato.`
+              `Imagen convertida a ${formatoDestino.toUpperCase()} (${tamanoKB} KB) - Calidad: ${calidadConversion}. Al descargar se guardará en este formato.`
             );
             guardarEstadoEnHistorial(
               `Conversión a ${formatoDestino.toUpperCase()}`
@@ -1343,6 +1343,9 @@ window.addEventListener('DOMContentLoaded', () => {
       container.style.display = 'flex';
       container.style.alignItems = 'center';
       container.style.gap = '10px';
+      container.style.position = 'absolute';
+      container.style.left = '50%';
+      container.style.transform = 'translateX(-50%)';
       container.style.flex = '1';
       container.style.justifyContent = 'center';
       container.style.maxWidth = '600px';
