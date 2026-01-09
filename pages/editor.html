@@ -375,13 +375,15 @@
             />
             Configuración
           </h2>
-          <button
-            class="modal-config-close"
-            id="btnCerrarConfig"
-            aria-label="Cerrar"
-          >
-            <img src="../assets/icons/close.svg" alt="Icono Cerrar" />
-          </button>
+          <div class="modal-config-actions">
+            <button
+              class="modal-config-close"
+              id="btnCerrarConfig"
+              aria-label="Cerrar"
+            >
+              <img src="../assets/icons/close.svg" alt="Icono Cerrar" />
+            </button>
+          </div>
         </div>
 
         <div class="modal-config-body">
@@ -503,7 +505,6 @@
 
         <div class="modal-perfil-footer">
           <button class="btn-perfil-logout" id="btnCerrarSesion">
-            <!-- <img src="../assets/icons/logout.svg" alt="Salir" /> -->
             Cerrar Sesión
           </button>
         </div>
@@ -513,7 +514,12 @@
     <!-- ========== MODAL DE CONFIRMACIÓN CERRAR SESIÓN ========== -->
     <div id="modalConfirmarLogout" class="modal-confirm" style="display: none">
       <div class="modal-confirm-content">
-        <h2 class="modal-confirm-title"><img src="../assets/icons/logout.svg" alt="Icono cerrar sesión">¿Cerrar sesión?</h2>
+        <h2 class="modal-confirm-title">
+          <img
+            src="../assets/icons/logout.svg"
+            alt="Icono cerrar sesión"
+          />¿Cerrar sesión?
+        </h2>
         <p class="modal-confirm-message">
           Estás a punto de cerrar tu sesión en Artify. Los cambios no guardados
           se perderán.
