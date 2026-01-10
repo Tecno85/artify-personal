@@ -219,7 +219,7 @@ p b {
 @media (max-width: 1366px) {
   .container {
     padding: 25px 20px;
-    gap: 20px;
+    gap: 10px;
     min-height: 100vh;
   }
 
@@ -233,11 +233,11 @@ p b {
   }
 
   .header-img p {
-    font-size: 1rem;
+    font-size: 0.95rem;
   }
 
   .enlaces {
-    font-size: 1rem;
+    font-size: 0.95rem;
   }
 
   main {
@@ -250,15 +250,15 @@ p b {
   }
 
   .bienvenida img {
-    width: 110px;
+    width: 80px;
   }
 
   .bienvenida h1 {
-    font-size: 2.9rem;
+    font-size: 2.7rem;
   }
 
   .bienvenida p {
-    font-size: 1.05rem;
+    font-size: 1rem;
   }
 
   .cards {
