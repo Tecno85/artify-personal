@@ -8,9 +8,20 @@
 # VS Code
 .vscode/
 
-# Files temporales
+# Archivos temporales
 *.log
 *.tmp
 *.swp
 *.swo
 
+# Node modules (si usas npm/node en el futuro)
+node_modules/
+
+# Archivos de respaldo de editores
+*~
+*.bak
+*.backup
+
+# Carpetas de sistema
+Thumbs.db
+desktop.ini

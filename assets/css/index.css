@@ -215,52 +215,88 @@ p b {
 
 /* ========== MEDIA QUERIES ========== */
 
-/* RESOLUCIÓN 1366 × 768 (Laptops estándar) */
+/* RESOLUCIÓN 1366 × 768 (Laptops estándar) - OPTIMIZADO SIN SCROLL */
 @media (max-width: 1366px) {
   .container {
-    padding: 30px 20px;
-    gap: 30px;
+    padding: 25px 20px;
+    gap: 20px;
+    min-height: 100vh;
   }
 
   header {
-    padding: 10px 20px;
+    padding: 8px 20px;
+    margin-bottom: 0;
+  }
+
+  .header-img img {
+    max-width: 26px;
+  }
+
+  .header-img p {
+    font-size: 1rem;
+  }
+
+  .enlaces {
+    font-size: 1rem;
   }
 
   main {
-    gap: 50px;
-    margin-bottom: 30px;
+    gap: 40px;
+    margin-bottom: 20px;
+  }
+
+  .bienvenida {
+    gap: 3px;
   }
 
   .bienvenida img {
-    width: 120px;
+    width: 110px;
   }
 
   .bienvenida h1 {
-    font-size: 3rem;
+    font-size: 2.9rem;
   }
 
   .bienvenida p {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
   }
 
   .cards {
-    gap: 40px;
+    gap: 35px;
   }
 
   .card {
-    padding: 18px;
+    padding: 16px;
+    gap: 12px;
+  }
+
+  .card h3 {
+    font-size: 1rem;
+  }
+
+  .card p {
+    font-size: 0.95rem;
   }
 
   .card-1 img {
-    width: 70px;
-  }
-
-  .card-2 img {
     width: 65px;
   }
 
+  .card-2 img {
+    width: 60px;
+  }
+
   .card-3 img {
-    width: 75px;
+    width: 70px;
+  }
+
+  footer {
+    margin-top: 10px;
+  }
+
+  footer p {
+    font-size: 0.9rem;
+    padding: 2px;
   }
 }
 
