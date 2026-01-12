@@ -180,6 +180,33 @@ form {
   color: rgba(255, 255, 255, 0.4);
 }
 
+/* Ocultar el botón nativo del navegador para mostrar/ocultar contraseña */
+input[type='password']::-ms-reveal,
+input[type='password']::-ms-clear {
+  display: none;
+}
+
+input[type='password']::-webkit-contacts-auto-fill-button,
+input[type='password']::-webkit-credentials-auto-fill-button {
+  visibility: hidden;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+}
+
+/* Para Edge y Chrome */
+input[type='password']::-webkit-textfield-decoration-container {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Alternativa más agresiva si lo anterior no funciona */
+input[type='password']::-webkit-inner-spin-button,
+input[type='password']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 /* Password Wrapper */
 .password-wrapper {
   position: relative;
@@ -201,15 +228,21 @@ form {
   display: flex;
   align-items: center;
   transition: transform 0.2s ease;
+  color: #ffffff;
 }
 
 .toggle-password:hover {
   transform: scale(1.1);
 }
 
-.toggle-password img {
+.toggle-password svg {
   width: 24px;
-  filter: invert(1);
+  height: 24px;
+  fill: none;
+  stroke: currentColor; /* Usa el color definido arriba */
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 /* Mensajes de error */
