@@ -31,7 +31,7 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 50px;
-  padding: 50px;
+  padding: 40px;
   min-height: 100vh;
   width: 100%;
   color: whitesmoke;
@@ -46,7 +46,7 @@ header {
   align-items: center;
   width: 100%;
   font-family: 'Inconsolata', sans-serif;
-  padding: 10px 40px;
+  padding: 0px 40px;
 }
 
 .header-img {
@@ -214,7 +214,6 @@ p b {
 }
 
 /* ========== MEDIA QUERY PARA 1920x1080 ========== */
-/* Agregar ANTES del media query de 1366px */
 
 @media (max-width: 1920px) {
   .container {
@@ -293,10 +292,75 @@ p b {
   }
 }
 
-/* ========== MEDIA QUERIES ========== */
+/* ========== VENTANA DIVIDIDA ULTRAWIDE (~1280px) - Restaurar estilos originales ========== */
+@media (min-width: 1200px) and (max-width: 1400px) {
+  .container {
+    padding: 50px;
+    gap: 50px;
+  }
 
-/* RESOLUCIÓN 1366 × 768 (Laptops estándar) - OPTIMIZADO SIN SCROLL */
-@media (max-width: 1366px) {
+  header {
+    padding: 0px 40px;
+  }
+
+  .header-img img {
+    max-width: 30px;
+  }
+
+  .header-img p {
+    font-size: 1.1rem;
+  }
+
+  .enlaces {
+    font-size: 1.1rem;
+  }
+
+  main {
+    gap: 80px;
+    margin-bottom: 40px;
+  }
+
+  .bienvenida img {
+    width: 150px;
+  }
+
+  .bienvenida h1 {
+    font-size: 3.5rem;
+  }
+
+  .bienvenida p {
+    font-size: 1.2rem;
+  }
+
+  .cards {
+    gap: 70px;
+  }
+
+  .card {
+    padding: 20px;
+    gap: 15px;
+  }
+
+  .card-1 img {
+    width: 80px;
+  }
+
+  .card-2 img {
+    width: 75px;
+  }
+
+  .card-3 img {
+    width: 85px;
+  }
+
+  footer p {
+    font-size: 1rem;
+  }
+}
+
+/* ========== MEDIA QUERIE  1366×768 (Solo laptops, NO ventana dividida) ========== */
+
+@media (min-width: 1025px) and (max-width: 1199px) {
   .container {
     padding: 25px 20px;
     gap: 10px;
@@ -486,4 +550,6 @@ p b {
     flex-wrap: wrap;
     text-align: center;
   }
+
+  /* 1536 x 695  */
 }

@@ -1981,10 +1981,561 @@ header {
   }
 }
 
+/* ========== VENTANA DIVIDIDA ULTRAWIDE (~1280px) - Restaurar estilos originales ========== */
+@media (min-width: 1200px) and (max-width: 1400px) {
+  /* ================= HEADER ================= */
+  header {
+    height: 90px;
+    padding: 15px 30px;
+  }
+
+  .header-left .logo {
+    width: 35px;
+    height: 35px;
+  }
+
+  .header-left h1 {
+    font-size: 1.8rem;
+    letter-spacing: 1.5px;
+  }
+
+  .user-info {
+    padding: 8px 16px;
+    font-size: 0.95rem;
+  }
+
+  .user-info img {
+    width: 28px;
+  }
+
+  .btn-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .btn-icon img {
+    width: 22px;
+  }
+
+  /* ================= LAYOUT ================= */
+  .editor-layout {
+    grid-template-columns: 240px 1fr 300px;
+  }
+
+  /* ================= PANELES ================= */
+  .panel-left,
+  .panel-right {
+    padding: 20px;
+    gap: 15px;
+  }
+
+  /* ================= PANEL IZQUIERDO ================= */
+  .section-title {
+    font-size: 1rem;
+    letter-spacing: 1.5px;
+    padding-bottom: 15px;
+    display: block;
+  }
+
+  .tool-section {
+    gap: 10px;
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .tool-btn {
+    padding: 12px 16px;
+    font-size: 0.95rem;
+    gap: 12px;
+  }
+
+  .tool-btn img {
+    width: 24px;
+  }
+
+  .tool-btn kbd {
+    font-size: 0.75rem;
+    padding: 2px 6px;
+  }
+
+  .tool-btn .expand-icon {
+    width: 16px;
+  }
+
+  .submenu {
+    padding-left: 20px;
+    margin-top: 5px;
+    gap: 5px;
+  }
+
+  .submenu-btn {
+    padding: 10px 12px;
+    font-size: 0.9rem;
+  }
+
+  .submenu-btn .bullet {
+    font-size: 1.2rem;
+  }
+
+  /* ================= CANVAS CENTRAL ================= */
+  .canvas-container {
+    padding: 20px;
+  }
+
+  .drop-zone {
+    max-width: 600px;
+    height: 400px;
+  }
+
+  .drop-icon {
+    width: 90px;
+    height: 90px;
+    margin-bottom: 20px;
+  }
+
+  .drop-text {
+    font-size: 1.3rem;
+    margin-bottom: 8px;
+  }
+
+  .drop-subtext {
+    font-size: 1rem;
+    margin-bottom: 15px;
+  }
+
+  .drop-info {
+    font-size: 0.85rem;
+    padding: 6px 12px;
+  }
+
+  .canvas-wrapper {
+    gap: 20px;
+  }
+
+  #mainCanvas {
+    max-height: calc(100vh - 250px);
+  }
+
+  .zoom-controls {
+    gap: 15px;
+    padding: 10px 20px;
+  }
+
+  .zoom-btn {
+    width: 32px;
+    height: 32px;
+  }
+
+  .zoom-btn img {
+    width: 16px;
+  }
+
+  .zoom-level {
+    font-size: 1rem;
+    min-width: 60px;
+  }
+
+  .image-dimensions {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+  }
+
+  /* ================= PANEL DERECHO ================= */
+  .panel-title {
+    font-size: 1.25rem;
+    padding-bottom: 15px;
+    letter-spacing: 1.3px;
+  }
+
+  .properties-section {
+    padding: 20px;
+  }
+
+  .prop-subtitle {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+  }
+
+  .prop-subtitle p {
+    width: 200px;
+  }
+
+  .prop-item {
+    padding: 10px 0;
+  }
+
+  .prop-label {
+    font-size: 0.95rem;
+  }
+
+  .prop-value {
+    font-size: 0.9rem;
+  }
+
+  .no-tool-selected {
+    font-size: 0.9rem;
+    padding: 15px 0 0;
+  }
+
+  .control-group {
+    gap: 12px;
+    margin-bottom: 15px;
+  }
+
+  .control-group label {
+    font-size: 0.9rem;
+  }
+
+  .select-input,
+  .number-input {
+    padding: 10px 12px;
+    font-size: 0.95rem;
+  }
+
+  .checkbox-control {
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+  }
+
+  .checkbox-control input[type='checkbox'] {
+    width: 18px;
+    height: 18px;
+  }
+
+  .btn-apply {
+    padding: 12px;
+    font-size: 1rem;
+  }
+
+  .rotate-buttons {
+    gap: 10px;
+  }
+
+  .btn-rotate {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+
+  .slider-input {
+    height: 8px;
+  }
+
+  .slider-input::-webkit-slider-thumb,
+  .slider-input::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+  }
+
+  .slider-value {
+    margin-left: 10px;
+  }
+
+  /* ================= STATUS BAR ================= */
+  .status-bar {
+    height: 50px;
+    padding: 30px 30px;
+    font-size: 0.9rem;
+  }
+
+  .status-item {
+    gap: 8px;
+  }
+
+  .status-item img {
+    width: 24px;
+  }
+
+  .status-indicator {
+    padding: 6px 12px;
+  }
+
+  /* ================= NOTIFICACIONES ================= */
+  .notifications-container {
+    top: 90px;
+    right: 30px;
+    gap: 15px;
+    max-width: 400px;
+  }
+
+  .notification {
+    gap: 15px;
+    padding: 20px;
+  }
+
+  .notification-icon {
+    font-size: 1.8rem;
+  }
+
+  .notification-title {
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+  }
+
+  .notification-message {
+    font-size: 0.95rem;
+  }
+
+  .notification-details {
+    margin-top: 10px;
+    padding-left: 20px;
+    font-size: 0.85rem;
+  }
+
+  .notification-close {
+    font-size: 1.3rem;
+    width: 24px;
+    height: 24px;
+  }
+
+  /* ================= MODAL DE RESOLUCIÓN ================= */
+  .modal-resolucion-content {
+    padding: 40px;
+    max-width: 600px;
+  }
+
+  .modal-resolucion-icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+  }
+
+  .modal-resolucion-title {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+  }
+
+  .modal-resolucion-message {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 25px;
+  }
+
+  .modal-resolucion-info {
+    padding: 20px;
+    margin-bottom: 25px;
+  }
+
+  .modal-resolucion-info p {
+    font-size: 0.95rem;
+    margin-bottom: 10px;
+  }
+
+  .modal-resolucion-suggestion {
+    font-size: 0.95rem;
+    margin-bottom: 12px;
+  }
+
+  .modal-resolucion-list {
+    margin-bottom: 30px;
+  }
+
+  .modal-resolucion-list li {
+    font-size: 0.9rem;
+    line-height: 1.8;
+    padding-left: 30px;
+    margin-bottom: 8px;
+  }
+
+  .modal-resolucion-list li:before {
+    font-size: 1.1rem;
+    left: 8px;
+  }
+
+  .modal-resolucion-actions {
+    gap: 12px;
+  }
+
+  .btn-modal-primary,
+  .btn-modal-secondary {
+    padding: 14px 24px;
+    font-size: 1rem;
+  }
+
+  /* ================= MODALES (Config, Perfil, Confirm) ================= */
+  .modal-config-content,
+  .modal-perfil-content,
+  .modal-confirm-content {
+    max-width: 500px;
+  }
+
+  .modal-config-header,
+  .modal-perfil-header {
+    padding: 15px 30px;
+  }
+
+  .modal-config-title,
+  .modal-perfil-title {
+    font-size: 1.5rem;
+    gap: 15px;
+  }
+
+  .modal-config-close,
+  .modal-perfil-close {
+    font-size: 1.5rem;
+    width: 32px;
+    height: 32px;
+  }
+
+  .modal-config-body,
+  .modal-perfil-body {
+    padding: 30px 30px 12px;
+  }
+
+  .config-section {
+    margin-bottom: 20px;
+    padding: 20px;
+  }
+
+  .config-section-title {
+    font-size: 1.15rem;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+  }
+
+  .config-section-title img {
+    width: 22px;
+  }
+
+  .config-item {
+    margin-bottom: 15px;
+  }
+
+  .config-label {
+    gap: 10px;
+    font-size: 1rem;
+    margin-bottom: 8px;
+  }
+
+  .config-select {
+    padding: 10px 12px;
+    font-size: 0.95rem;
+  }
+
+  .config-checkbox {
+    width: 18px;
+    height: 18px;
+  }
+
+  .config-user-info {
+    gap: 10px;
+  }
+
+  .config-user-info p {
+    font-size: 1rem;
+  }
+
+  .modal-config-footer {
+    gap: 12px;
+    padding: 20px 30px;
+  }
+
+  .btn-config-primary,
+  .btn-config-secondary {
+    padding: 12px 24px;
+    font-size: 1rem;
+  }
+
+  /* Perfil */
+  .perfil-avatar {
+    margin-bottom: 20px;
+  }
+
+  .perfil-avatar-img {
+    width: 100px;
+    height: 100px;
+    padding: 15px;
+  }
+
+  .perfil-info {
+    margin-bottom: 30px;
+  }
+
+  .perfil-info h3 {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+  }
+
+  .perfil-info p {
+    font-size: 1rem;
+  }
+
+  .perfil-stats {
+    gap: 15px;
+    margin-bottom: 30px;
+  }
+
+  .perfil-stat {
+    padding: 15px;
+  }
+
+  .perfil-stat-value {
+    font-size: 1.8rem;
+    margin-bottom: 5px;
+  }
+
+  .perfil-stat-label {
+    font-size: 0.95rem;
+  }
+
+  .btn-perfil-config {
+    gap: 10px;
+    padding: 12px 24px;
+    font-size: 1rem;
+  }
+
+  .btn-perfil-config img {
+    width: 20px;
+  }
+
+  .modal-perfil-footer {
+    padding: 20px 30px;
+  }
+
+  .btn-perfil-logout {
+    gap: 10px;
+    padding: 14px 24px;
+    font-size: 1rem;
+  }
+
+  .btn-perfil-logout img {
+    width: 20px;
+  }
+
+  /* Confirm */
+  .modal-confirm-content {
+    max-width: 450px;
+    padding: 35px;
+  }
+
+  .modal-confirm-title {
+    gap: 10px;
+    font-size: 1.8rem;
+  }
+
+  .modal-confirm-message {
+    font-size: 1rem;
+    margin: 30px 5px;
+  }
+
+  .modal-confirm-actions {
+    gap: 12px;
+  }
+
+  .btn-confirm-cancel,
+  .btn-confirm-primary {
+    padding: 14px 24px;
+    font-size: 1rem;
+  }
+
+  #toolControls {
+    display: block;
+  }
+}
+
 /* ======================================================
-   MODO OPTIMIZADO – 1366 × 768
+   MODO OPTIMIZADO – 1366 × 768 (Solo laptops, NO ventana dividida)
    ====================================================== */
-@media (max-width: 1366px) {
+@media (min-width: 1025px) and (max-width: 1199px) {
   /* ================= HEADER ================= */
   header {
     height: 75px;
