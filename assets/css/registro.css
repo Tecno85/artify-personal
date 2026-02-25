@@ -894,7 +894,7 @@ p b {
 }
 
 /* RESOLUCIÓN 1366 × 768 (Laptops estándar) - OPTIMIZADO SIN SCROLL */
-@media (min-width: 1025px) and (max-width: 1199px) {
+@media (min-width: 769px) and (max-width: 1199px) {
   .container {
     padding: 20px;
     gap: 5px;

@@ -784,7 +784,7 @@ p b {
 }
 
 /* MODO COMPACTO – 1024px y menos */
-@media (max-width: 1024px) {
+/* @media (max-width: 1024px) {
   header {
     display: flex;
     flex-direction: column;
@@ -817,7 +817,7 @@ p b {
     margin-top: 0px;
     padding-top: 0px;
   }
-}
+} */
 
 /* RESPONSIVE */
 @media (max-width: 768px) {

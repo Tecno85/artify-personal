@@ -2019,7 +2019,7 @@ header {
 
   /* ================= LAYOUT ================= */
   .editor-layout {
-    grid-template-columns: 240px 1fr 300px;
+    grid-template-columns: 210px 1fr 280px;
   }
 
   /* ================= PANELES ================= */
@@ -2113,17 +2113,18 @@ header {
   }
 
   #mainCanvas {
-    max-height: calc(100vh - 250px);
+    max-height: calc(100vh - 200px);
   }
 
   .zoom-controls {
+    display: none;
     gap: 15px;
-    padding: 10px 20px;
+    padding: 10px 10px;
   }
 
   .zoom-btn {
-    width: 32px;
-    height: 32px;
+    width: 25px;
+    height: 25px;
   }
 
   .zoom-btn img {
@@ -2136,6 +2137,7 @@ header {
   }
 
   .image-dimensions {
+    display: none;
     padding: 8px 16px;
     font-size: 0.9rem;
   }

@@ -358,12 +358,10 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
   function actualizarDimensionesDisplay() {
-    document.getElementById(
-      'imageDimensions'
-    ).textContent = `${canvas.width} x ${canvas.height} px`;
-    document.getElementById(
-      'propDimensiones'
-    ).textContent = `${canvas.width} x ${canvas.height} px`;
+    document.getElementById('imageDimensions').textContent =
+      `${canvas.width} x ${canvas.height} px`;
+    document.getElementById('propDimensiones').textContent =
+      `${canvas.width} x ${canvas.height} px`;
   }
 
   function formatearTamano(bytes) {
@@ -1383,18 +1381,18 @@ window.addEventListener('DOMContentLoaded', () => {
       tipo === 'error'
         ? 'rgba(239, 68, 68, 0.15)'
         : tipo === 'warning'
-        ? 'rgba(245, 158, 11, 0.15)'
-        : tipo === 'info'
-        ? 'rgba(0, 123, 255, 0.15)'
-        : 'rgba(16, 185, 129, 0.15)';
+          ? 'rgba(245, 158, 11, 0.15)'
+          : tipo === 'info'
+            ? 'rgba(0, 123, 255, 0.15)'
+            : 'rgba(16, 185, 129, 0.15)';
     notificacion.style.border = `1px solid ${
       tipo === 'error'
         ? '#ef4444'
         : tipo === 'warning'
-        ? '#f59e0b'
-        : tipo === 'info'
-        ? '#007bff'
-        : '#10b981'
+          ? '#f59e0b'
+          : tipo === 'info'
+            ? '#007bff'
+            : '#10b981'
     }`;
     notificacion.style.borderRadius = '6px';
     notificacion.style.color = '#f5f5f5';
@@ -1425,8 +1423,8 @@ window.addEventListener('DOMContentLoaded', () => {
       tipo === 'error' || tipo === 'warning'
         ? 5000
         : tipo === 'info'
-        ? 3500
-        : 5000;
+          ? 3500
+          : 5000;
 
     setTimeout(() => {
       if (notificacion.parentElement) {
