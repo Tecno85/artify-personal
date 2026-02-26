@@ -14,7 +14,7 @@
 *.swp
 *.swo
 
-# Node modules (si usas npm/node en el futuro)
+# Node modules
 node_modules/
 
 # Archivos de respaldo de editores
@@ -26,5 +26,12 @@ node_modules/
 Thumbs.db
 desktop.ini
 
-
 tempCodeRunnerFile.js
+
+# Variables de entorno - NUNCA subir a GitHub
+.env
+.env.local
+.env.production
+
+# Package lock (opcional, algunos equipos lo excluyen)
+package-lock.json
