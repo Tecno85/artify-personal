@@ -325,50 +325,49 @@ document.addEventListener('DOMContentLoaded', () => {
       btnRegistrarse.disabled = true;
       btnRegistrarse.textContent = 'Registrando...';
 
-      setTimeout(() => {
-        const nuevoUsuario = {
+      // Registro con backend
+      fetch('http://localhost:3000/api/registro', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
           nombres: nombres.value,
           apellidos: apellidos.value,
           cedula: cedula.value,
           fechaNacimiento: fechaNacimiento.value,
           correo: email.value,
-          password: password.value, // ¡Importante! Asegúrate de guardar la contraseña para el login
-          fechaRegistro: new Date().toISOString(),
-        };
-
-        // 1. Obtener la lista actual de usuarios o crear una vacía
-        const usuariosExistentes = JSON.parse(
-          localStorage.getItem('artifyUsuarios') || '[]'
-        );
-
-        // 2. Verificar si el correo ya existe para evitar duplicados
-        if (usuariosExistentes.find((u) => u.correo === nuevoUsuario.correo)) {
-          mostrarError('email', 'Este correo ya está registrado');
+          password: password.value,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
           btnRegistrarse.disabled = false;
           btnRegistrarse.textContent = 'Registrarse';
-          return;
-        }
 
-        // 3. Agregar el nuevo usuario a la lista y guardar
-        usuariosExistentes.push(nuevoUsuario);
-        localStorage.setItem(
-          'artifyUsuarios',
-          JSON.stringify(usuariosExistentes)
-        );
+          if (data.mensaje === 'Registro exitoso') {
+            // Guardar datos en sessionStorage
+            sessionStorage.setItem('artifyUser', JSON.stringify(data.usuario));
+            sessionStorage.setItem('artifyToken', 'token-' + Date.now());
 
-        // 4. Iniciar sesión automática (opcional pero recomendado)
-        sessionStorage.setItem('artifyUser', JSON.stringify(nuevoUsuario));
-        sessionStorage.setItem('artifyToken', 'token-' + Date.now());
+            mostrarNotificacionRegistro(
+              'success',
+              '¡Registro exitoso! Redirigiendo...'
+            );
 
-        mostrarNotificacionRegistro(
-          'success',
-          '¡Registro exitoso! Redirigiendo...'
-        );
-
-        setTimeout(() => {
-          window.location.href = './editor.html';
-        }, 1500);
-      }, 1000);
+            setTimeout(() => {
+              window.location.href = './editor.html';
+            }, 1500);
+          } else {
+            mostrarError('email', data.mensaje);
+          }
+        })
+        .catch((err) => {
+          console.error('❌ Error al conectar con el servidor:', err);
+          btnRegistrarse.disabled = false;
+          btnRegistrarse.textContent = 'Registrarse';
+          mostrarError('email', 'Error al conectar con el servidor');
+        });
     } else {
       const primerError = document.querySelector('.error-message.show');
       if (primerError) {
