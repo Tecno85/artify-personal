@@ -371,12 +371,12 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
   // ========== DESCARGAR IMAGEN ==========
-  btnDescargar.addEventListener('click', () => {
+  btnDescargar.addEventListener('click', async () => {
     if (!currentImage) return;
     actualizarEstado('Generando descarga...', 'processing');
 
-    // Obtener preferencias
-    const prefs = cargarPreferencias();
+    // Obtener preferencias desde MySQL
+    const prefs = await cargarPreferencias();
 
     // Si hay un formato convertido, usar ese; si no, usar las preferencias
     const formato = formatoActual || prefs.formatoDefecto || 'png';
@@ -1473,20 +1473,54 @@ const PREFERENCIAS_DEFAULT = {
   autoguardado: false,
 };
 
-function cargarPreferencias() {
+async function cargarPreferencias() {
   try {
-    const guardadas = localStorage.getItem(PREFERENCIAS_KEY);
-    return guardadas ? JSON.parse(guardadas) : { ...PREFERENCIAS_DEFAULT };
+    const userData = sessionStorage.getItem('artifyUser');
+    if (!userData) return { ...PREFERENCIAS_DEFAULT };
+
+    const usuario = JSON.parse(userData);
+    const res = await fetch(
+      `http://localhost:3000/api/configuracion/${usuario.id}`
+    );
+    const data = await res.json();
+
+    if (data.mensaje === 'ok') {
+      console.log('✅ Preferencias cargadas desde MySQL');
+      return data.configuracion;
+    }
+    return { ...PREFERENCIAS_DEFAULT };
   } catch {
+    console.warn(
+      '⚠️ No se pudo cargar configuración del servidor, usando valores por defecto'
+    );
     return { ...PREFERENCIAS_DEFAULT };
   }
 }
 
-function guardarPreferencias(prefs) {
+async function guardarPreferencias(prefs) {
   try {
-    localStorage.setItem(PREFERENCIAS_KEY, JSON.stringify(prefs));
+    const userData = sessionStorage.getItem('artifyUser');
+    if (!userData) return false;
+
+    const usuario = JSON.parse(userData);
+
+    const res = await fetch('http://localhost:3000/api/configuracion', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        idUsuario: usuario.id,
+        calidadExportacion: prefs.calidadExportacion,
+        notificaciones: prefs.notificacionesHabilitadas,
+        formatoDefecto: prefs.formatoDefecto,
+        autoguardado: prefs.autoguardado,
+      }),
+    });
+
+    const data = await res.json();
+    console.log('✅ Preferencias guardadas en MySQL:', data.mensaje);
     return true;
   } catch {
+    console.warn('⚠️ No se pudo guardar configuración en el servidor');
     return false;
   }
 }
@@ -1501,11 +1535,10 @@ function aplicarPreferencias(prefs) {
   );
 }
 
-function abrirModalConfiguracion() {
+async function abrirModalConfiguracion() {
   const modal = document.getElementById('modalConfiguracion');
   if (!modal) return;
 
-  const prefs = cargarPreferencias();
   const userData = sessionStorage.getItem('artifyUser');
 
   if (userData) {
@@ -1526,6 +1559,9 @@ function abrirModalConfiguracion() {
     } catch {}
   }
 
+  // Cargar preferencias desde MySQL
+  const prefs = await cargarPreferencias();
+
   const notif = document.getElementById('configNotificaciones');
   const calidad = document.getElementById('configCalidadExportacion');
   const formato = document.getElementById('configFormatoDefecto');
@@ -1544,7 +1580,7 @@ function cerrarModalConfiguracion() {
   if (modal) modal.style.display = 'none';
 }
 
-function guardarConfiguracion() {
+async function guardarConfiguracion() {
   const notif = document.getElementById('configNotificaciones');
   const calidad = document.getElementById('configCalidadExportacion');
   const formato = document.getElementById('configFormatoDefecto');
@@ -1557,7 +1593,8 @@ function guardarConfiguracion() {
     autoguardado: auto ? auto.checked : false,
   };
 
-  if (guardarPreferencias(nuevas)) {
+  const guardado = await guardarPreferencias(nuevas);
+  if (guardado) {
     aplicarPreferencias(nuevas);
     cerrarModalConfiguracion();
     mostrarNotificacion('success', 'Configuración guardada correctamente');
@@ -1604,8 +1641,8 @@ function cerrarSesionSegura() {
   setTimeout(() => (window.location.href = '../index.html'), 1000);
 }
 
-function inicializarRF10yRF11() {
-  const prefs = cargarPreferencias();
+async function inicializarRF10yRF11() {
+  const prefs = await cargarPreferencias();
   aplicarPreferencias(prefs);
 
   const btnConfig = document.getElementById('btnConfig');
