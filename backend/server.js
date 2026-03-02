@@ -329,14 +329,84 @@ app.get('/api/estadisticas/:id', (req, res) => {
 
     const totalSesiones = results[0].total;
 
-    console.log('✅ Estadísticas cargadas. Sesiones:', totalSesiones);
+    // Contar operaciones del usuario
+    const queryOperaciones = `
+      SELECT COUNT(*) as total 
+      FROM OPERACION 
+      WHERE ope_usr_id_usuario = ?
+    `;
+
+    db.query(queryOperaciones, [id], (err, resOpe) => {
+      if (err) {
+        console.error('❌ Error al obtener operaciones:', err.message);
+        return res.status(500).json({ mensaje: 'Error en el servidor' });
+      }
+
+      const totalOperaciones = resOpe[0].total;
+
+      console.log(
+        '✅ Estadísticas cargadas. Sesiones:',
+        totalSesiones,
+        'Operaciones:',
+        totalOperaciones
+      );
+      res.json({
+        mensaje: 'ok',
+        estadisticas: {
+          sesiones: totalSesiones,
+          operaciones: totalOperaciones,
+          imagenesEditadas: 0,
+        },
+      });
+    });
+  });
+});
+
+// ========== ENDPOINT REGISTRAR OPERACIÓN ==========
+app.post('/api/operacion', (req, res) => {
+  const { idUsuario, idSesion, tipo, descripcion } = req.body;
+
+  console.log('📨 Registrando operación:', tipo, 'para usuario ID:', idUsuario);
+
+  const query = `
+    INSERT INTO OPERACION 
+      (ope_usr_id_usuario, ope_ses_id_sesion, ope_tipo, ope_descripcion, ope_fecha)
+    VALUES (?, ?, ?, ?, NOW())
+  `;
+
+  db.query(query, [idUsuario, idSesion, tipo, descripcion], (err, result) => {
+    if (err) {
+      console.error('❌ Error al registrar operación:', err.message);
+      return res.status(500).json({ mensaje: 'Error en el servidor' });
+    }
+
+    console.log('✅ Operación registrada. ID:', result.insertId);
+    res.json({
+      mensaje: 'Operación registrada',
+      idOperacion: result.insertId,
+    });
+  });
+});
+
+// ========== ENDPOINT OBTENER TOTAL OPERACIONES ==========
+app.get('/api/operacion/total/:id', (req, res) => {
+  const { id } = req.params;
+
+  const query = `
+    SELECT COUNT(*) as total 
+    FROM OPERACION 
+    WHERE ope_usr_id_usuario = ?
+  `;
+
+  db.query(query, [id], (err, results) => {
+    if (err) {
+      console.error('❌ Error al obtener operaciones:', err.message);
+      return res.status(500).json({ mensaje: 'Error en el servidor' });
+    }
+
     res.json({
       mensaje: 'ok',
-      estadisticas: {
-        sesiones: totalSesiones,
-        operaciones: 0,
-        imagenesEditadas: 0,
-      },
+      total: results[0].total,
     });
   });
 });

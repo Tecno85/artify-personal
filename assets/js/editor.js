@@ -79,6 +79,33 @@ function sincronizarImagenYCanvas(callback) {
   );
 }
 
+// ========== FUNCIÓN PARA REGISTRAR OPERACIÓN EN BACKEND ==========
+async function registrarOperacion(tipo, descripcion) {
+  try {
+    const userData = sessionStorage.getItem('artifyUser');
+    const idSesion = sessionStorage.getItem('artifyIdSesion');
+
+    if (!userData || !idSesion) return;
+
+    const usuario = JSON.parse(userData);
+
+    await fetch('http://localhost:3000/api/operacion', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        idUsuario: usuario.id,
+        idSesion: parseInt(idSesion),
+        tipo,
+        descripcion,
+      }),
+    });
+
+    console.log('✅ Operación registrada en MySQL:', tipo);
+  } catch (err) {
+    console.warn('⚠️ No se pudo registrar la operación:', err);
+  }
+}
+
 // ========== FUNCIÓN PARA GUARDAR ESTADO EN HISTORIAL ==========
 function guardarEstadoEnHistorial(descripcion) {
   // Si estamos en medio del historial, eliminar los estados futuros
@@ -394,6 +421,8 @@ window.addEventListener('DOMContentLoaded', async () => {
     const formato = formatoActual || prefs.formatoDefecto || 'png';
     const calidad = calidadActual || prefs.calidadExportacion || 'alta';
 
+    registrarOperacion('descargar', `Descarga en formato ${formato}`);
+
     // Mapear calidad a valor numérico
     const calidadMap = {
       alta: 1.0,
@@ -492,6 +521,7 @@ window.addEventListener('DOMContentLoaded', async () => {
 
       console.log('🔄 Convirtiendo a:', formatoDestino);
       actualizarEstado('Convirtiendo imagen...', 'processing');
+      registrarOperacion('convertir', `Conversión a formato ${formatoDestino}`);
 
       // Mapear calidad a valor numérico
       const calidadMap = {
@@ -814,6 +844,10 @@ window.addEventListener('DOMContentLoaded', async () => {
 
       console.log('📏 Redimensionando:', newWidth, 'x', newHeight);
       actualizarEstado('Redimensionando...', 'processing');
+      registrarOperacion(
+        'redimensionar',
+        `Redimensionado a ${nuevoAncho}x${nuevoAlto}px`
+      );
 
       const tempCanvas = document.createElement('canvas');
       const tempCtx = tempCanvas.getContext('2d');
@@ -864,6 +898,7 @@ window.addEventListener('DOMContentLoaded', async () => {
 
     console.log('🔄 Rotando imagen:', angle, '°');
     actualizarEstado('Rotando imagen...', 'processing');
+    registrarOperacion('rotar', `Rotación de ${angle}°`);
 
     const tempCanvas = document.createElement('canvas');
     const tempCtx = tempCanvas.getContext('2d');
@@ -1180,6 +1215,7 @@ window.addEventListener('DOMContentLoaded', async () => {
 
     console.log('✂️ Aplicando recorte:', cropArea);
     actualizarEstado('Recortando imagen...', 'processing');
+    registrarOperacion('recorte', 'Recorte de imagen aplicado');
 
     const tempCanvas = document.createElement('canvas');
     const tempCtx = tempCanvas.getContext('2d');
