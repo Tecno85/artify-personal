@@ -1529,6 +1529,21 @@ window.addEventListener('DOMContentLoaded', async () => {
 
   inicializarRF10yRF11();
   console.log('✅ Editor Artify cargado correctamente');
+
+  // ========== CERRAR SESIÓN AL CERRAR EL NAVEGADOR ==========
+  window.addEventListener('beforeunload', () => {
+    const idSesion = sessionStorage.getItem('artifyIdSesion');
+    if (idSesion) {
+      // Usar sendBeacon para garantizar que la petición se envíe
+      // incluso cuando el navegador se está cerrando
+      const data = JSON.stringify({ idSesion: parseInt(idSesion) });
+      navigator.sendBeacon(
+        'http://localhost:3000/api/sesion/cerrar',
+        new Blob([data], { type: 'application/json' })
+      );
+      console.log('✅ Sesión cerrada al salir del navegador');
+    }
+  });
 });
 
 // ========== RESIZE LISTENER ==========
