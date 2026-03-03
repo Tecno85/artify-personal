@@ -130,14 +130,39 @@ app.post('/api/registro', (req, res) => {
         console.log('✅ Usuario registrado exitosamente:', nombres, apellidos);
         console.log('   ID asignado por MySQL:', result.insertId);
 
-        res.json({
-          mensaje: 'Registro exitoso',
-          usuario: {
-            id: result.insertId,
-            nombres,
-            apellidos,
-            correo,
-          },
+        // Crear configuración por defecto automáticamente
+        const queryConfig = `
+        INSERT INTO CONFIGURACION 
+          (cfg_usr_id_usuario, cfg_calidad_exportacion, cfg_configuracion_avanzada, cfg_fecha_actualizacion)
+        VALUES (?, 'media', ?, NOW())
+      `;
+
+        const configDefecto = JSON.stringify({
+          notificaciones: true,
+          formatoDefecto: 'png',
+          autoguardado: false,
+        });
+
+        db.query(queryConfig, [result.insertId, configDefecto], (errConfig) => {
+          if (errConfig) {
+            console.warn(
+              '⚠️ No se pudo crear configuración por defecto:',
+              errConfig.message
+            );
+          } else {
+            console.log('✅ Configuración por defecto creada para:', nombres);
+          }
+
+          // Responder al frontend independientemente del resultado de la configuración
+          res.json({
+            mensaje: 'Registro exitoso',
+            usuario: {
+              id: result.insertId,
+              nombres,
+              apellidos,
+              correo,
+            },
+          });
         });
       }
     );
