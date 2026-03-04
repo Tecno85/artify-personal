@@ -565,7 +565,7 @@ app.get('/api/admin/usuarios', (req, res) => {
   const query = `
     SELECT usr_id_usuario, usr_nombres, usr_apellidos, 
            usr_cedula, usr_fecha_nacimiento, usr_correo, 
-           usr_fecha_registro, usr_estado_usuario
+           usr_fecha_registro, usr_estado_usuario, usr_rol
     FROM USUARIO
     ORDER BY usr_fecha_registro DESC
   `;

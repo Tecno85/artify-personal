@@ -154,6 +154,11 @@ function renderizarTabla(usuarios) {
         </span>
       </td>
       <td>
+        <span class="estado-badge ${u.usr_rol === 'admin' ? 'estado-activo' : 'estado-inactivo'}">
+          ${u.usr_rol === 'admin' ? '👑 Admin' : '👤 Usuario'}
+        </span>
+      </td>
+      <td>
         <div class="acciones-cell">
           <button class="btn-editar" onclick="abrirEditar(${u.usr_id_usuario})">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
