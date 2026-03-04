@@ -113,9 +113,14 @@ loginForm.addEventListener('submit', (e) => {
           sessionStorage.setItem('artifyUser', JSON.stringify(data.usuario));
           sessionStorage.setItem('artifyToken', 'token-' + Date.now());
 
-          // Redirigir al editor
-          console.log('🚀 Redirigiendo al editor...');
-          window.location.href = './editor.html';
+          // Redirigir según el rol del usuario
+          if (data.usuario.rol === 'admin') {
+            console.log('👑 Redirigiendo al panel de administración...');
+            window.location.href = './admin.html';
+          } else {
+            console.log('🚀 Redirigiendo al editor...');
+            window.location.href = './editor.html';
+          }
         } else {
           mostrarError('email', data.mensaje);
         }

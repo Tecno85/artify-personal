@@ -422,6 +422,30 @@ document.getElementById('modalEliminar').addEventListener('click', (e) => {
 
 // ========== VERIFICAR SESIÓN AL CARGAR ==========
 document.addEventListener('DOMContentLoaded', () => {
+  console.log('🔍 artifyUser en admin:', sessionStorage.getItem('artifyUser'));
+  console.log(
+    '🔍 artifyAdmin en admin:',
+    sessionStorage.getItem('artifyAdmin')
+  );
+  // Verificar si viene desde el login principal con rol admin
+  const artifyUser = sessionStorage.getItem('artifyUser');
+  if (artifyUser) {
+    const usuario = JSON.parse(artifyUser);
+    if (usuario.rol === 'admin') {
+      sessionStorage.setItem(
+        'artifyAdmin',
+        JSON.stringify({ correo: usuario.correo })
+      );
+      document.getElementById('loginOverlay').style.display = 'none';
+      document.getElementById('adminPanel').style.display = 'block';
+      document.getElementById('adminName').textContent =
+        usuario.nombres + ' ' + usuario.apellidos;
+      cargarUsuarios();
+      return;
+    }
+  }
+
+  // Verificar si ya tiene sesión de admin guardada
   const admin = sessionStorage.getItem('artifyAdmin');
   if (admin) {
     const data = JSON.parse(admin);

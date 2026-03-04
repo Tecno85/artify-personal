@@ -67,6 +67,7 @@ app.post('/api/login', (req, res) => {
     }
 
     console.log('🎉 Login exitoso para:', usuario.usr_nombres);
+    console.log('👤 Rol:', usuario.usr_rol);
     res.json({
       mensaje: 'Login exitoso',
       usuario: {
@@ -74,6 +75,7 @@ app.post('/api/login', (req, res) => {
         nombres: usuario.usr_nombres,
         apellidos: usuario.usr_apellidos,
         correo: usuario.usr_correo,
+        rol: usuario.usr_rol,
       },
     });
   });
