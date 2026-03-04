@@ -536,6 +536,161 @@ app.post('/api/imagen', (req, res) => {
   );
 });
 
+// ========== ENDPOINTS PANEL DE ADMINISTRACIÓN ==========
+
+// Login del administrador
+app.post('/api/admin/login', (req, res) => {
+  const { correo, password } = req.body;
+
+  console.log('📨 Intento de acceso al panel de administración:', correo);
+
+  if (
+    correo !== process.env.ADMIN_USER ||
+    password !== process.env.ADMIN_PASSWORD
+  ) {
+    console.log('❌ Credenciales de administrador incorrectas');
+    return res.status(401).json({ mensaje: 'Credenciales incorrectas' });
+  }
+
+  console.log('✅ Acceso al panel de administración concedido');
+  res.json({ mensaje: 'Acceso concedido', admin: { correo } });
+});
+
+// Select — Obtener todos los usuarios
+app.get('/api/admin/usuarios', (req, res) => {
+  console.log('📨 Obteniendo lista de usuarios');
+
+  const query = `
+    SELECT usr_id_usuario, usr_nombres, usr_apellidos, 
+           usr_cedula, usr_fecha_nacimiento, usr_correo, 
+           usr_fecha_registro, usr_estado_usuario
+    FROM USUARIO
+    ORDER BY usr_fecha_registro DESC
+  `;
+
+  db.query(query, (err, results) => {
+    if (err) {
+      console.error('❌ Error al obtener usuarios:', err.message);
+      return res.status(500).json({ mensaje: 'Error en el servidor' });
+    }
+
+    console.log('✅ Usuarios obtenidos:', results.length);
+    res.json({ mensaje: 'ok', usuarios: results });
+  });
+});
+
+// Insert — Agregar nuevo usuario
+app.post('/api/admin/usuario', (req, res) => {
+  const { nombres, apellidos, cedula, fechaNacimiento, correo, password } =
+    req.body;
+
+  console.log('📨 Agregando nuevo usuario:', nombres);
+
+  const queryBuscar =
+    'SELECT * FROM USUARIO WHERE usr_correo = ? OR usr_cedula = ?';
+
+  db.query(queryBuscar, [correo, cedula], (err, results) => {
+    if (err) {
+      console.error('❌ Error en la consulta:', err.message);
+      return res.status(500).json({ mensaje: 'Error en el servidor' });
+    }
+
+    if (results.length > 0) {
+      return res
+        .status(400)
+        .json({ mensaje: 'El correo o cédula ya está registrado' });
+    }
+
+    const hash = bcrypt.hashSync(password, 10);
+
+    const queryInsertar = `
+      INSERT INTO USUARIO 
+        (usr_nombres, usr_apellidos, usr_cedula, usr_fecha_nacimiento,
+         usr_correo, usr_contrasena, usr_fecha_registro, usr_estado_usuario)
+      VALUES (?, ?, ?, ?, ?, ?, NOW(), 'activo')
+    `;
+
+    db.query(
+      queryInsertar,
+      [nombres, apellidos, cedula, fechaNacimiento, correo, hash],
+      (err, result) => {
+        if (err) {
+          console.error('❌ Error al insertar usuario:', err.message);
+          return res.status(500).json({ mensaje: 'Error al agregar usuario' });
+        }
+
+        // Crear configuración por defecto
+        const configDefecto = JSON.stringify({
+          notificaciones: true,
+          formatoDefecto: 'png',
+          autoguardado: false,
+        });
+
+        db.query(
+          `INSERT INTO CONFIGURACION (cfg_usr_id_usuario, cfg_calidad_exportacion, cfg_configuracion_avanzada, cfg_fecha_actualizacion) VALUES (?, 'media', ?, NOW())`,
+          [result.insertId, configDefecto]
+        );
+
+        console.log('✅ Usuario agregado correctamente:', nombres);
+        res.json({ mensaje: 'Usuario agregado correctamente' });
+      }
+    );
+  });
+});
+
+// Update — Editar usuario
+app.put('/api/admin/usuario/:id', (req, res) => {
+  const { id } = req.params;
+  const { nombres, apellidos, cedula, fechaNacimiento, correo, estado } =
+    req.body;
+
+  console.log('📨 Editando usuario ID:', id);
+
+  const query = `
+    UPDATE USUARIO 
+    SET usr_nombres = ?,
+        usr_apellidos = ?,
+        usr_cedula = ?,
+        usr_fecha_nacimiento = ?,
+        usr_correo = ?,
+        usr_estado_usuario = ?
+    WHERE usr_id_usuario = ?
+  `;
+
+  db.query(
+    query,
+    [nombres, apellidos, cedula, fechaNacimiento, correo, estado, id],
+    (err) => {
+      if (err) {
+        console.error('❌ Error al editar usuario:', err.message);
+        return res.status(500).json({ mensaje: 'Error al editar usuario' });
+      }
+
+      console.log('✅ Usuario editado correctamente');
+      res.json({ mensaje: 'Usuario editado correctamente' });
+    }
+  );
+});
+
+// Delete — Eliminar usuario
+app.delete('/api/admin/usuario/:id', (req, res) => {
+  const { id } = req.params;
+
+  console.log('📨 Eliminando usuario ID:', id);
+
+  const query = 'DELETE FROM USUARIO WHERE usr_id_usuario = ?';
+
+  db.query(query, [id], (err) => {
+    if (err) {
+      console.error('❌ Error al eliminar usuario:', err.message);
+      return res.status(500).json({ mensaje: 'Error al eliminar usuario' });
+    }
+
+    console.log('✅ Usuario eliminado correctamente');
+    res.json({ mensaje: 'Usuario eliminado correctamente' });
+  });
+});
+
 // ========== LIMPIEZA AUTOMÁTICA DE SESIONES INACTIVAS ==========
 // Se ejecuta cada 30 minutos y cierra sesiones que llevan
 // más de 8 horas sin actividad
