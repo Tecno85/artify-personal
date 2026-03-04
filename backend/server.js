@@ -680,17 +680,31 @@ app.delete('/api/admin/usuario/:id', (req, res) => {
 
   console.log('📨 Eliminando usuario ID:', id);
 
-  const query = 'DELETE FROM USUARIO WHERE usr_id_usuario = ?';
+  // Eliminar registros relacionados primero
+  const queries = [
+    'DELETE FROM IMAGEN_OPERACION WHERE img_usr_id_usuario = ?',
+    'DELETE FROM OPERACION WHERE ope_usr_id_usuario = ?',
+    'DELETE FROM SESION_EDICION WHERE ses_usr_id_usuario = ?',
+    'DELETE FROM CONFIGURACION WHERE cfg_usr_id_usuario = ?',
+    'DELETE FROM USUARIO WHERE usr_id_usuario = ?',
+  ];
 
-  db.query(query, [id], (err) => {
-    if (err) {
-      console.error('❌ Error al eliminar usuario:', err.message);
-      return res.status(500).json({ mensaje: 'Error al eliminar usuario' });
+  const ejecutarQuery = (index) => {
+    if (index >= queries.length) {
+      console.log('✅ Usuario eliminado correctamente');
+      return res.json({ mensaje: 'Usuario eliminado correctamente' });
     }
 
-    console.log('✅ Usuario eliminado correctamente');
-    res.json({ mensaje: 'Usuario eliminado correctamente' });
-  });
+    db.query(queries[index], [id], (err) => {
+      if (err) {
+        console.error('❌ Error al eliminar:', err.message);
+        return res.status(500).json({ mensaje: 'Error al eliminar usuario' });
+      }
+      ejecutarQuery(index + 1);
+    });
+  };
+
+  ejecutarQuery(0);
 });
 
 // ========== LIMPIEZA AUTOMÁTICA DE SESIONES INACTIVAS ==========
