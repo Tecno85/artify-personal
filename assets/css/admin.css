@@ -4,11 +4,11 @@
   --card: #161616;
   --card2: #1e1e1e;
   --border: rgba(255, 255, 255, 0.08);
-  --primary: #007bff;
-  --primary-dark: #0056b3;
+  --primary: #4ae3f4;
+  --primary-dark: #469af3;
   --accent: #28ffce;
   --text: #f5f5f5;
-  --text-muted: #888;
+  --text-muted: #acabab;
   --error: #ef4444;
   --success: #28ffce;
   --warning: #f59e0b;
@@ -17,6 +17,9 @@
   --font-body: 'Inconsolata', monospace;
   --radius: 10px;
   --shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+
+  /* ✅ Sidebar más angosto */
+  --sidebar-width: 170px;
 }
 
 /* ========== RESET ========== */
@@ -28,12 +31,14 @@
   padding: 0;
 }
 
+/* ✅ Tamaño de fuente base más grande */
 body {
   font-family: var(--font-body);
   background: var(--bg);
   color: var(--text);
   min-height: 100vh;
   overflow-x: hidden;
+  font-size: 25px;
 }
 
 /* ========== LOGIN OVERLAY ========== */
@@ -224,8 +229,8 @@ body {
 .admin-header {
   background: var(--card);
   border-bottom: 1px solid var(--border);
-  padding: 0 24px;
-  height: 64px;
+  padding: 10px 30px;
+  height: 80px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -237,31 +242,36 @@ body {
 .header-left {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 20px;
 }
 
 .header-logo {
-  width: 36px;
-  height: 36px;
+  width: 42px;
+  height: 42px;
 }
 
+/* ✅ CAMBIO 1: Artify en blanco y más grande */
 .header-title {
   font-family: var(--font-head);
-  font-size: 1.3rem;
-  color: var(--primary);
+  font-size: 1.7rem;
+  color: var(--text);
   line-height: 1;
+  letter-spacing: 1.4px;
 }
 
 .header-subtitle {
-  font-size: 0.75rem;
+  font-size: 0.95rem;
   color: var(--text-muted);
   display: block;
+  font-weight: 900;
+  margin-top: 7px;
+  letter-spacing: 0.9px;
 }
 
 .header-right {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
 }
 
 .admin-badge {
@@ -271,13 +281,13 @@ body {
   background: var(--card2);
   border: 1px solid var(--border);
   border-radius: 24px;
-  padding: 6px 14px;
-  font-size: 0.85rem;
+  padding: 5px 12px;
+  font-size: 0.95rem;
 }
 
 .badge-dot {
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
   background: var(--accent);
   border-radius: 50%;
   animation: pulse 2s infinite;
@@ -296,16 +306,17 @@ body {
 .btn-logout {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   background: none;
   border: 1px solid var(--border);
   border-radius: var(--radius);
   color: var(--text-muted);
-  padding: 8px 14px;
+  padding: 7px 12px;
   font-family: var(--font-body);
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   cursor: pointer;
   transition: all 0.2s;
+  letter-spacing: 0.7px;
 }
 
 .btn-logout:hover {
@@ -314,46 +325,70 @@ body {
 }
 
 .btn-logout svg {
-  width: 16px;
-  height: 16px;
+  width: 15px;
+  height: 15px;
 }
 
 /* ========== LAYOUT ========== */
+/* ✅ CAMBIO 2: Sidebar más angosto */
 .admin-layout {
   display: grid;
-  grid-template-columns: 220px 1fr;
-  min-height: calc(100vh - 64px);
+  grid-template-columns: var(--sidebar-width) 1fr;
+  min-height: calc(100vh - 60px);
+}
+
+/* ✅ CAMBIO 3: Soporte para ultrawide y pantallas divididas */
+@media (min-width: 1400px) {
+  :root {
+    --sidebar-width: 160px;
+  }
+  .admin-content {
+    max-width: 100%;
+  }
+  .table-container {
+    width: 100%;
+  }
+}
+
+@media (min-width: 2560px) {
+  body {
+    font-size: 16px;
+  }
+  :root {
+    --sidebar-width: 180px;
+  }
 }
 
 /* ========== SIDEBAR ========== */
 .admin-sidebar {
   background: var(--card);
   border-right: 1px solid var(--border);
-  padding: 24px 0;
+  padding: 20px 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
 .nav-section-title {
-  font-size: 0.7rem;
+  font-size: 0.95rem;
   color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 1px;
-  padding: 0 20px;
-  margin-bottom: 8px;
+  padding: 0 14px;
+  margin-bottom: 6px;
 }
 
 .nav-item {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 12px 20px;
+  gap: 8px;
+  padding: 10px 14px;
   color: var(--text-muted);
   text-decoration: none;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   transition: all 0.2s;
   border-left: 3px solid transparent;
+  letter-spacing: 1px;
 }
 
 .nav-item:hover {
@@ -365,11 +400,13 @@ body {
   color: var(--primary);
   background: rgba(0, 123, 255, 0.08);
   border-left-color: var(--primary);
+  font-size: 1rem;
+  font-weight: 700;
 }
 
 .nav-item svg {
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
   flex-shrink: 0;
 }
 
@@ -378,42 +415,43 @@ body {
   background: var(--primary);
   color: white;
   border-radius: 12px;
-  padding: 2px 8px;
-  font-size: 0.75rem;
+  padding: 2px 7px;
+  font-size: 0.72rem;
   font-weight: 700;
 }
 
 .sidebar-stats {
-  padding: 20px;
+  padding: 14px;
   border-top: 1px solid var(--border);
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  gap: 8px;
 }
 
 .stat-item {
   background: var(--card2);
   border-radius: var(--radius);
-  padding: 12px;
+  /* padding: 10px 6px; */
   text-align: center;
 }
 
 .stat-value {
   display: block;
   font-family: var(--font-head);
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   color: var(--accent);
 }
 
 .stat-label {
-  font-size: 0.75rem;
+  font-size: 0.95rem;
   color: var(--text-muted);
 }
 
 /* ========== CONTENIDO ========== */
 .admin-content {
-  padding: 28px;
+  padding: 24px;
   background: var(--bg);
+  min-width: 0;
 }
 
 /* ========== TOOLBAR ========== */
@@ -421,8 +459,8 @@ body {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  margin-bottom: 24px;
-  gap: 16px;
+  margin-bottom: 20px;
+  gap: 12px;
   flex-wrap: wrap;
 }
 
@@ -432,17 +470,20 @@ body {
   color: var(--text);
   line-height: 1;
   margin-bottom: 4px;
+  letter-spacing: 1.5px;
 }
 
 .content-subtitle {
-  font-size: 0.8rem;
+  font-size: 0.95rem;
   color: var(--text-muted);
+  letter-spacing: 0.85px;
 }
 
 .toolbar-right {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 .search-box {
@@ -452,12 +493,12 @@ body {
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 8px 14px;
+  padding: 7px 12px;
 }
 
 .search-box svg {
-  width: 16px;
-  height: 16px;
+  width: 15px;
+  height: 15px;
   color: var(--text-muted);
   flex-shrink: 0;
 }
@@ -468,8 +509,8 @@ body {
   outline: none;
   color: var(--text);
   font-family: var(--font-body);
-  font-size: 0.9rem;
-  width: 200px;
+  font-size: 0.88rem;
+  width: 160px;
 }
 
 .search-box input::placeholder {
@@ -479,27 +520,29 @@ body {
 .btn-agregar {
   display: flex;
   align-items: center;
-  gap: 8px;
-  background: var(--primary);
-  color: white;
+  gap: 6px;
+  background: var(--card2);
+  color: var(--text);
   border: none;
   border-radius: var(--radius);
-  padding: 10px 18px;
+  padding: 9px 16px;
   font-family: var(--font-body);
-  font-size: 0.9rem;
-  font-weight: 600;
+  font-size: 0.88rem;
   cursor: pointer;
   transition: all 0.2s;
   white-space: nowrap;
+  letter-spacing: 0.9;
 }
 
 .btn-agregar:hover {
-  background: var(--primary-dark);
+  color: var(--card2);
+  background-color: var(--primary);
   transform: translateY(-1px);
+  font-weight: 900;
 }
 .btn-agregar svg {
-  width: 16px;
-  height: 16px;
+  width: 15px;
+  height: 15px;
 }
 
 /* ========== TABLA ========== */
@@ -514,7 +557,8 @@ body {
 .admin-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.875rem;
+  font-size: 1rem;
+  text-align: center;
 }
 
 .admin-table thead tr {
@@ -523,14 +567,15 @@ body {
 }
 
 .admin-table th {
-  padding: 14px 16px;
+  padding: 12px 14px;
   text-align: left;
-  font-size: 0.75rem;
+  font-size: 1rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  color: var(--text-muted);
+  color: #7ae9f6;
   font-weight: 700;
   white-space: nowrap;
+  text-align: center;
 }
 
 .admin-table tbody tr {
@@ -546,9 +591,10 @@ body {
 }
 
 .admin-table td {
-  padding: 14px 16px;
+  padding: 12px 14px;
   color: var(--text);
   vertical-align: middle;
+  white-space: nowrap;
 }
 
 .loading-row td {
@@ -561,10 +607,10 @@ body {
 .estado-badge {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 4px 10px;
+  gap: 5px;
+  padding: 3px 9px;
   border-radius: 20px;
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   font-weight: 600;
 }
 
@@ -584,18 +630,18 @@ body {
 /* Acciones */
 .acciones-cell {
   display: flex;
-  gap: 8px;
+  gap: 6px;
 }
 
 .btn-editar,
 .btn-eliminar-row {
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 6px 12px;
+  gap: 5px;
+  padding: 5px 10px;
   border-radius: 6px;
   font-family: var(--font-body);
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s;
@@ -626,8 +672,8 @@ body {
 
 .btn-editar svg,
 .btn-eliminar-row svg {
-  width: 14px;
-  height: 14px;
+  width: 13px;
+  height: 13px;
 }
 
 /* ========== MODALES ========== */
@@ -667,12 +713,14 @@ body {
 
 .modal-header h3 {
   font-family: var(--font-head);
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   color: var(--text);
+  letter-spacing: 1.3px;
 }
 
 .modal-header.danger h3 {
   color: var(--error);
+  letter-spacing: 1px;
 }
 
 .modal-close {
@@ -709,14 +757,16 @@ body {
 }
 
 .delete-warning {
-  font-size: 0.95rem;
+  font-size: 1.1rem;
   color: var(--text);
   margin-bottom: 10px;
+  letter-spacing: 0.8px;
 }
 
 .delete-info {
-  font-size: 0.85rem;
+  font-size: 1rem;
   color: var(--text-muted);
+  letter-spacing: 0.8px;
 }
 
 .modal-footer {
@@ -794,7 +844,7 @@ body {
   opacity: 0;
   transition: all 0.3s ease;
   z-index: 999;
-  max-width: 320px;
+  max-width: 300px;
 }
 
 .admin-notificacion.show {
