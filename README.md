@@ -1,6 +1,18 @@
-#  ![Logo del Proyecto](./assets/icons/modx.svg) Artify - Editor de Imágenes Web
+#  ![Logo del Proyecto](./assets/icons/modx.svg) Artify — Editor de Imágenes Web
 
-**Artify** es un editor de imágenes web desarrollado 100% con tecnologías frontend (HTML, CSS, JavaScript vanilla). Permite a los usuarios editar imágenes de manera intuitiva directamente desde el navegador, sin necesidad de instalar software adicional.
+<div align="center">
+
+![Version](https://img.shields.io/badge/versión-2.0.0-4ae3f4?style=for-the-badge)
+![Status](https://img.shields.io/badge/estado-activo-28ffce?style=for-the-badge)
+![License](https://img.shields.io/badge/licencia-MIT-blue?style=for-the-badge)
+![Node](https://img.shields.io/badge/Node.js-18+-339933?style=for-the-badge&logo=node.js)
+![MySQL](https://img.shields.io/badge/MySQL-8.0+-4479A1?style=for-the-badge&logo=mysql)
+
+**Artify** es un editor de imágenes web full stack desarrollado con HTML, CSS, JavaScript vanilla en el frontend y Node.js + Express + MySQL en el backend. Permite a los usuarios editar imágenes de manera intuitiva directamente desde el navegador, con autenticación real, gestión de sesiones y panel de administración.
+
+[🌐 Ver Demo](#-prueba-en-línea) · [🐛 Reportar Bug](https://github.com/Tecno85/Artify/issues) · [💡 Sugerir Feature](https://github.com/Tecno85/Artify/issues)
+
+</div>
 
 ---
 
@@ -8,226 +20,365 @@
 
 - [Características](#-características)
 - [Tecnologías](#-tecnologías)
+- [Arquitectura](#-arquitectura)
 - [Estructura del Proyecto](#-estructura-del-proyecto)
-- [Instalación y Uso](#-instalación-y-uso)
+- [Requisitos Previos](#-requisitos-previos)
+- [Instalación y Configuración](#-instalación-y-configuración)
+- [Uso](#-uso)
 - [Funcionalidades Principales](#-funcionalidades-principales)
-- [Atajos de Teclado](#%EF%B8%8F-atajos-de-teclado)
+- [Panel de Administración](#-panel-de-administración)
+- [Base de Datos](#-base-de-datos)
+- [Atajos de Teclado](#️-atajos-de-teclado)
 - [Navegadores Soportados](#-navegadores-soportados)
+- [Estándares de Codificación](#-estándares-de-codificación)
 - [Notas Importantes](#-notas-importantes)
-- [Capturas de Pantalla](#-capturas-de-pantalla)
 - [Autor](#-autor)
 
 ---
 
 ## ✨ Características
 
+### Frontend
 - 🖼️ **Carga de imágenes** mediante drag & drop o selector de archivos
-- ✂️ **Recortar** imágenes con proporciones personalizables (libre, 1:1, 16:9, 4:3, 3:2)
+- ✂️ **Recortar** con proporciones personalizables (libre, 1:1, 16:9, 4:3, 3:2)
 - 📏 **Redimensionar** con opción de mantener proporción
-- 🔄 **Rotar** imágenes en ángulos de 90°, 180° y 270°
-- 🎨 **Filtros artísticos**: Blanco y Negro, Sepia, Brillo, Contraste (con intensidad ajustable)
+- 🔄 **Rotar** en ángulos de 90°, 180° y 270°
+- 🎨 **Filtros artísticos**: Blanco y Negro, Sepia, Brillo, Contraste
 - 🔄 **Convertir formato**: PNG, JPEG, WebP con ajuste de calidad
-- ⏪ **Deshacer/Rehacer** operaciones (historial de hasta 20 pasos)
+- ⏪ **Deshacer/Rehacer** (historial de hasta 20 pasos)
 - 🔍 **Zoom** in/out (50% - 200%)
-- 💾 **Descarga** con configuración personalizable de formato y calidad
-- 🎯 **Interfaz intuitiva** con 3 paneles (herramientas, canvas, propiedades)
+- 💾 **Descarga** con configuración personalizable
 - 🌙 **Tema oscuro** moderno y profesional
-- 📱 **Advertencia de resolución** para dispositivos pequeños
-- 👤 **Sistema de usuario** con login y registro (frontend)
-- ⚙️ **Configuración persistente** de preferencias del editor
+
+### Backend y Autenticación
+- 🔐 **Autenticación real** con MySQL y encriptación bcrypt
+- 👤 **Sistema de roles**: administrador y usuario
+- 🔑 **Redirección automática** según el rol al iniciar sesión
+- 📊 **Registro de operaciones** en base de datos
+- 🕐 **Control de sesiones** con cierre automático por inactividad
+- ⚙️ **Configuración personalizada** por usuario en MySQL
+
+### Panel de Administración
+- 📋 **CRUD completo** sobre la tabla USUARIO
+- 🔍 **Búsqueda en tiempo real** de usuarios
+- 📈 **Estadísticas** de usuarios activos e inactivos
+- 🛡️ **Acceso protegido** con credenciales de administrador
 
 ---
 
 ## 🛠️ Tecnologías
 
-- **HTML5** - Estructura semántica
-- **CSS3** - Diseño moderno con variables CSS y grid/flexbox
-- **JavaScript (Vanilla)** - Lógica del editor con Canvas API
-- **Canvas API** - Manipulación de imágenes
-- **LocalStorage** - Persistencia de preferencias y backup
-- **SessionStorage** - Gestión de sesión de usuario
+### Frontend
+| Tecnología | Uso |
+|------------|-----|
+| HTML5 | Estructura semántica |
+| CSS3 | Diseño con variables CSS, Grid y Flexbox |
+| JavaScript Vanilla | Lógica del editor con Canvas API |
+| Canvas API | Manipulación de imágenes |
+| SessionStorage | Gestión de sesión de usuario |
 
-**Sin dependencias externas** - Todo el código es nativo del navegador.
+### Backend
+| Tecnología | Versión | Uso |
+|------------|---------|-----|
+| Node.js | 18+ | Entorno de ejecución |
+| Express | 4+ | Framework del servidor |
+| MySQL | 8.0+ | Base de datos relacional |
+| mysql2 | Latest | Conector MySQL para Node.js |
+| bcryptjs | Latest | Encriptación de contraseñas |
+| dotenv | Latest | Variables de entorno |
+| cors | Latest | Control de acceso entre orígenes |
+
+---
+
+## 🏗️ Arquitectura
+
+```
+┌─────────────────────────────────────────────────┐
+│                   FRONTEND                       │
+│  HTML + CSS + JavaScript (Canvas API)           │
+│  Páginas: index, login, registro, editor, admin │
+└────────────────────┬────────────────────────────┘
+                     │ HTTP / REST API
+┌────────────────────▼────────────────────────────┐
+│                   BACKEND                        │
+│         Node.js + Express (server.js)           │
+│  Endpoints: /api/login, /api/registro,          │
+│  /api/sesion, /api/operacion, /api/admin/*      │
+└────────────────────┬────────────────────────────┘
+                     │ mysql2
+┌────────────────────▼────────────────────────────┐
+│                 BASE DE DATOS                    │
+│                MySQL — artify_db                │
+│  Tablas: USUARIO, SESION_EDICION, OPERACION,    │
+│  CONFIGURACION, IMAGEN                          │
+└─────────────────────────────────────────────────┘
+```
 
 ---
 
 ## 📁 Estructura del Proyecto
 
 ```
-artify/
-├── index.html              # Página principal (landing/home)
-├── README.md               # Este archivo
-├── .gitignore             # Archivos ignorados por Git
+Artify/
+├── index.html                  # Página principal
+├── README.md                   # Documentación del proyecto
+├── .gitignore                  # Archivos ignorados por Git
 │
-├── pages/                  # Páginas HTML
-│   ├── editor.html        # Editor principal
-│   ├── login.html         # Inicio de sesión
-│   └── registro.html      # Registro de usuario
+├── pages/                      # Páginas HTML
+│   ├── editor.html             # Editor de imágenes
+│   ├── login.html              # Inicio de sesión
+│   ├── registro.html           # Registro de usuario
+│   └── admin.html              # Panel de administración
 │
-└── assets/                # Recursos del proyecto
-    ├── css/               # Hojas de estilo
-    │   ├── editor.css
-    │   ├── login.css
-    │   ├── registro.css
-    │   └── styles.css     # Estilos del index
-    │
-    ├── js/                # Scripts JavaScript
-    │   ├── editor.js      # Lógica del editor
-    │   ├── login.js
-    │   └── registro.js
-    │
-    ├── fonts/             # Fuentes personalizadas
-    │   ├── Paytone_One/
-    │   └── Inconsolata/
-    │
-    ├── icons/             # Iconos SVG
-    │   └── *.svg
-    │
-    └── images/            # Imágenes del proyecto
-        └── *.svg/png
+├── assets/                     # Recursos del proyecto
+│   ├── css/                    # Hojas de estilo
+│   │   ├── admin.css
+│   │   ├── editor.css
+│   │   ├── index.css
+│   │   ├── login.css
+│   │   └── registro.css
+│   │
+│   ├── js/                     # Scripts JavaScript
+│   │   ├── admin.js            # Lógica del panel de administración
+│   │   ├── editor.js           # Lógica del editor
+│   │   ├── login.js            # Lógica del login
+│   │   └── registro.js         # Lógica del registro
+│   │
+│   ├── fonts/                  # Fuentes tipográficas
+│   │   ├── Inconsolata/
+│   │   └── Paytone_One/
+│   │
+│   ├── icons/                  # Iconos SVG
+│   └── images/                 # Imágenes del proyecto
+│
+├── backend/                    # Servidor Node.js
+│   ├── server.js               # Servidor Express con todos los endpoints
+│   ├── .env                    # Variables de entorno (no se sube a GitHub)
+│   ├── package.json            # Dependencias del proyecto
+│   └── node_modules/           # Módulos instalados (ignorado por Git)
+│
+└── docs/                       # Documentación técnica
+    └── CODING_STANDARDS.md     # Estándares de codificación
 ```
 
 ---
 
-## 🚀 Cómo Usar
+## ✅ Requisitos Previos
 
-### 🌐 Prueba en línea (GitHub Pages)
+Antes de instalar el proyecto asegúrate de tener:
 
-**Simplemente abre este link y comienza a editar:**
-
-👉 **[https://tecno85.github.io/Artify/](https://tecno85.github.io/Artify/)** 👈
-
+- [Node.js](https://nodejs.org/) v18 o superior
+- [MySQL](https://dev.mysql.com/downloads/) v8.0 o superior
+- [Git](https://git-scm.com/)
+- Un servidor HTTP local (como `npx http-server`)
 
 ---
 
-### 💻 Uso Local (Desarrolladores)
+## 🚀 Instalación y Configuración
 
-Si quieres ejecutarlo localmente:
+### 1. Clonar el repositorio
 
 ```bash
-git clone https://tecno85.github.io/Artify/
-cd artify
+git clone https://github.com/Tecno85/Artify.git
+cd Artify
 ```
 
-Luego abre `index.html` en tu navegador, o usa un servidor local:
+### 2. Instalar dependencias del backend
 
 ```bash
-# Con Python
-python -m http.server 8000
-
-# Con Node.js
-npx http-server -p 8000
+cd backend
+npm install
 ```
 
-Accede en: `http://localhost:8000`
+### 3. Configurar variables de entorno
+
+Crea un archivo `.env` dentro de la carpeta `backend/` con este contenido:
+
+```env
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=tu_contraseña_mysql
+DB_NAME=artify_db
+ADMIN_USER=admin@artify.com
+ADMIN_PASSWORD=tu_contraseña_admin
+```
+
+### 4. Crear la base de datos en MySQL
+
+```sql
+CREATE DATABASE artify_db;
+USE artify_db;
+```
+
+Luego ejecuta el script SQL del proyecto para crear todas las tablas.
+
+### 5. Iniciar el backend
+
+```bash
+node server.js
+```
+
+Debes ver:
+```
+✅ Conectado a MySQL correctamente
+🚀 Servidor corriendo en http://localhost:3000
+```
+
+### 6. Iniciar el frontend
+
+En una terminal separada desde la raíz del proyecto:
+
+```bash
+npx http-server -p 8080
+```
+
+### 7. Abrir en el navegador
+
+```
+http://127.0.0.1:8080
+```
 
 ---
 
-### 🎯 Acceso Rápido al Editor
+## 🎯 Uso
 
-Si solo quieres probar el editor sin registro/login:
+### Usuario normal
+1. Regístrate en `pages/registro.html`
+2. Inicia sesión en `pages/login.html`
+3. El sistema te redirige automáticamente al editor
+4. Edita tus imágenes y descárgalas
 
-👉 **[Ir directamente al editor](https://tecno85.github.io/Artify/)** 👈
+### Administrador
+1. Inicia sesión con las credenciales de administrador
+2. El sistema detecta el rol `admin` y redirige al panel
+3. Gestiona todos los usuarios desde el panel de administración
 
 ---
 
-## 🎯 Funcionalidades Principales
+## 🎨 Funcionalidades Principales
 
-### 1. Cargar Imagen
-- **Drag & Drop**: Arrastra una imagen al área punteada
-- **Selector de archivos**: Haz clic en "Subir Imagen"
-- **Formatos soportados**: JPG, PNG, WebP, AVIF
-- **Tamaño máximo**: 10 MB
+### Cargar Imagen
+- **Drag & Drop** — Arrastra una imagen al área punteada
+- **Selector de archivos** — Haz clic en "Subir Imagen"
+- **Formatos soportados** — JPG, PNG, WebP, AVIF
+- **Tamaño máximo** — 10 MB
 
-### 2. Herramientas de Edición
+### Herramientas de Edición
 
 #### ✂️ Recortar
-- Selecciona el área deseada arrastrando sobre la imagen
-- Elige proporción: Libre, 1:1, 16:9, 4:3, 3:2
+- Selecciona el área arrastrando sobre la imagen
+- Proporciones: Libre, 1:1, 16:9, 4:3, 3:2
 - Guías visuales de tercios incluidas
-- Aplica el recorte con el botón "Aplicar Recorte"
 
 #### 📏 Redimensionar
 - Ingresa nuevas dimensiones en píxeles
 - Opción de mantener proporción automáticamente
-- Validación de valores mínimos
 
 #### 🔄 Rotar
 - Rotación rápida: 90°, 180°, 270°
 - Ajuste automático de dimensiones del canvas
 
 #### 🎨 Filtros
-- **Blanco y Negro**: Convierte a escala de grises
-- **Sepia**: Efecto vintage
-- **Brillo**: Ajusta luminosidad
-- **Contraste**: Intensifica diferencias tonales
-- Todos con **intensidad ajustable** (0-100%)
+- **Blanco y Negro** — Convierte a escala de grises
+- **Sepia** — Efecto vintage
+- **Brillo** — Ajusta luminosidad
+- **Contraste** — Intensifica diferencias tonales
+- Todos con intensidad ajustable (0-100%)
 
 #### 🔄 Convertir Formato
 - Convierte entre PNG, JPEG y WebP
-- Ajuste de calidad para JPEG/WebP (alta, media, baja)
-- Previsualización del tamaño resultante
-
-### 3. Controles Adicionales
-
-- **Zoom**: 50% - 200% (botones +/-)
-- **Deshacer/Rehacer**: Historial de hasta 20 operaciones
-- **Propiedades**: Visualiza nombre, tamaño, dimensiones y formato
-- **Descarga**: Exporta con el formato y calidad configurados
-
-### 4. Configuración y Perfil
-
-- **Preferencias del editor**:
-  - Calidad de exportación por defecto
-  - Formato por defecto para descargas
-  - Activar/desactivar autoguardado
-
-- **Información de usuario**:
-  - Nombre completo
-  - Correo electrónico
-  - Última sesión
+- Ajuste de calidad para JPEG/WebP
 
 ---
+
+## 🛡️ Panel de Administración
+
+El panel de administración implementa un **CRUD completo** sobre la tabla USUARIO que es la entidad fuerte no dependiente del modelo de datos.
+
+| Operación | Descripción |
+|-----------|-------------|
+| **SELECT** | Lista todos los usuarios con búsqueda en tiempo real |
+| **INSERT** | Agrega nuevos usuarios con validación de campos |
+| **UPDATE** | Edita datos y estado de usuarios existentes |
+| **DELETE** | Elimina usuarios con confirmación previa |
+
+**Acceso:** Usuarios con rol `admin` son redirigidos automáticamente al panel al iniciar sesión.
+
+---
+
+## 🗄️ Base de Datos
+
+### Tablas principales
+
+```
+artify_db
+├── USUARIO           → Entidad fuerte — usuarios del sistema
+├── SESION_EDICION    → Sesiones de edición por usuario
+├── OPERACION         → Registro de operaciones realizadas
+├── CONFIGURACION     → Configuración personalizada por usuario
+└── IMAGEN            → Imágenes procesadas por usuario
+```
+
+### Vista disponible
+
+```sql
+-- Resumen de usuarios activos con estadísticas
+SELECT * FROM v_usuarios_activos;
+```
+
+---
+
 
 ## 🌐 Navegadores Soportados
 
 | Navegador | Versión Mínima |
 |-----------|----------------|
-| Chrome    | 90+            |
-| Firefox   | 88+            |
-| Edge      | 90+            |
-| Safari    | 14+            |
-| Opera     | 76+            |
+| Chrome | 90+ |
+| Firefox | 88+ |
+| Edge | 90+ |
+| Safari | 14+ |
+| Opera | 76+ |
 
-> **Nota**: Se requiere soporte para Canvas API y FileReader API.
+> Requiere soporte para Canvas API y FileReader API.
+
+---
+
+## 📐 Estándares de Codificación
+
+Este proyecto sigue estándares de codificación documentados. Consulta el archivo [`docs/CODING_STANDARDS.md`](./docs/CODING_STANDARDS.md) para más detalles sobre:
+
+- Nomenclatura de variables, constantes y parámetros
+- Declaración de funciones y métodos
+- Estándares para HTML, CSS, JavaScript y Node.js
+- Convenciones para comentarios
+- Estándares para consultas SQL
+- Convenciones para commits de Git
 
 ---
 
 ## 📌 Notas Importantes
 
 ### Resolución Recomendada
-- **Mínima**: 1366 x 768 px
-- **Óptima**: 1920 x 1080 px o superior
-- El sistema mostrará una advertencia si la resolución es menor a la recomendada
-
-### Limitaciones Actuales
-- No hay backend, todo es procesado en el navegador
-- Las sesiones de usuario no persisten entre cierres del navegador
-- El historial de operaciones se limita a 20 pasos para optimizar memoria
-- El autoguardado usa `localStorage` (puede fallar con imágenes muy grandes)
+- **Mínima:** 1366 x 768 px
+- **Óptima:** 1920 x 1080 px o superior
 
 ### Consideraciones de Rendimiento
-- Imágenes muy grandes (>8000x8000 px) pueden causar lentitud
-- El navegador puede limitar el uso de memoria para Canvas
-- Se recomienda usar imágenes de resolución razonable (<5000x5000 px)
+- Imágenes mayores a 8000x8000 px pueden causar lentitud
+- Se recomienda usar imágenes de resolución razonable
+
+### Seguridad
+- Las contraseñas se encriptan con bcrypt antes de almacenarse
+- Las credenciales de la base de datos se manejan con variables de entorno
+- El archivo `.env` nunca se sube al repositorio
 
 ---
 
 ## 👨‍💻 Autor
 
-**Tu Nombre**
-- GitHub: [Tecno85](https://github.com/Tecno85)
+**Ivan Dario Madrid Daza**
+- GitHub: [@Tecno85](https://github.com/Tecno85)
 - Email: tecno85@gmail.com
+- Programa: Análisis y Desarrollo de Software — SENA
 
 ---
 
@@ -243,7 +394,7 @@ Las contribuciones son bienvenidas. Por favor:
 
 1. Haz un fork del proyecto
 2. Crea una rama para tu feature (`git checkout -b feature/nueva-funcionalidad`)
-3. Commit tus cambios (`git commit -m 'feat: agregar nueva funcionalidad'`)
+3. Haz commit de tus cambios (`git commit -m 'feat: agregar nueva funcionalidad'`)
 4. Push a la rama (`git push origin feature/nueva-funcionalidad`)
 5. Abre un Pull Request
 
@@ -251,17 +402,21 @@ Las contribuciones son bienvenidas. Por favor:
 
 ## 🔮 Roadmap Futuro
 
-- [ ] Soporte para más formatos (AVIF optimizado, TIFF)
+- [ ] Implementar JWT para protección de endpoints
+- [ ] Paginación en el historial de operaciones
 - [ ] Más filtros avanzados (blur, sharpen, pixelate)
 - [ ] Herramienta de texto sobre imágenes
-- [ ] Capas y máscaras
-- [ ] Backend para persistencia real de usuarios
 - [ ] Exportación a PDF
 - [ ] Procesamiento por lotes
+- [ ] Despliegue en producción (Railway + PlanetScale)
 - [ ] Integración con servicios en la nube
 
 ---
 
-**¿Preguntas o sugerencias?** Abre un [issue](https://github.com/tu-usuario/artify/issues) en GitHub.
+<div align="center">
 
-Hecho con ❤️ usando HTML, CSS y JavaScript vanilla.
+Hecho con ❤️ usando HTML, CSS, JavaScript, Node.js y MySQL
+
+**[⬆ Volver arriba](#-artify--editor-de-imágenes-web)**
+
+</div>
