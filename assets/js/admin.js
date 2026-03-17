@@ -1,5 +1,5 @@
 // ========== CONFIGURACIÓN ==========
-const API = 'http://localhost:3000';
+const API = 'http://localhost:3001';
 let usuarioIdEliminar = null;
 let modoEdicion = false;
 let todosLosUsuarios = [];

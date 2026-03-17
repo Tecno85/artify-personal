@@ -326,7 +326,7 @@ document.addEventListener('DOMContentLoaded', () => {
       btnRegistrarse.textContent = 'Registrando...';
 
       // Registro con backend
-      fetch('http://localhost:3000/api/registro', {
+      fetch('http://localhost:3001/api/registro', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
