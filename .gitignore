@@ -28,10 +28,15 @@ desktop.ini
 
 tempCodeRunnerFile.js
 
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
 # Variables de entorno - NUNCA subir a GitHub
 .env
 .env.local
 .env.production
 
-# Package lock (opcional, algunos equipos lo excluyen)
+# Package lock 
 package-lock.json
