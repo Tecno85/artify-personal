@@ -24,13 +24,13 @@ Este backend implementa un servidor HTTP utilizando únicamente el módulo nativ
 
 ## 🛠️ Tecnologías
 
-| Tecnología | Versión | Uso |
-|------------|---------|-----|
-| Python | 3.13+ | Lenguaje principal |
-| http.server | Nativo | Servidor HTTP sin framework |
-| mysql-connector-python | 9.6+ | Conexión a MySQL |
-| bcrypt | 5.0+ | Encriptación de contraseñas |
-| python-dotenv | 1.2+ | Variables de entorno |
+| Tecnología             | Versión | Uso                         |
+| ---------------------- | ------- | --------------------------- |
+| Python                 | 3.13+   | Lenguaje principal          |
+| http.server            | Nativo  | Servidor HTTP sin framework |
+| mysql-connector-python | 9.6+    | Conexión a MySQL            |
+| bcrypt                 | 5.0+    | Encriptación de contraseñas |
+| python-dotenv          | 1.2+    | Variables de entorno        |
 
 ---
 
@@ -84,6 +84,22 @@ DB_USER=tu_usuario_mysql
 DB_PASSWORD=tu_contraseña_mysql
 DB_NAME=artify_db
 ```
+### 3. Crear la base de datos
+
+Importa el script SQL incluido en la carpeta `database/`:
+```bash
+mysql -u root -p < ../database/artify_db.sql
+```
+
+O desde MySQL Workbench:
+```
+Server → Data Import → Import from Self-Contained File
+Selecciona: database/artify_db.sql
+Clic en: Start Import
+```
+
+> ⚠️ **Importante:** El script crea automáticamente la base de datos
+> `artify_db` con todas sus tablas.
 
 > ⚠️ **Importante:** El archivo `.env` nunca se sube a GitHub. Está incluido en el `.gitignore` del proyecto.
 
@@ -120,14 +136,14 @@ Ctrl + C
 
 ## 🔌 Endpoints
 
-| Método | Endpoint | Descripción |
-|--------|----------|-------------|
-| `POST` | `/api/login` | Iniciar sesión con bcrypt |
-| `POST` | `/api/registro` | Registrar nuevo usuario |
-| `GET` | `/api/admin/usuarios` | Consultar todos los usuarios |
-| `POST` | `/api/admin/usuario` | Insertar nuevo usuario |
-| `PUT` | `/api/admin/usuario/:id` | Actualizar usuario por ID |
-| `DELETE` | `/api/admin/usuario/:id` | Eliminar usuario por ID |
+| Método   | Endpoint                 | Descripción                  |
+| -------- | ------------------------ | ---------------------------- |
+| `POST`   | `/api/login`             | Iniciar sesión con bcrypt    |
+| `POST`   | `/api/registro`          | Registrar nuevo usuario      |
+| `GET`    | `/api/admin/usuarios`    | Consultar todos los usuarios |
+| `POST`   | `/api/admin/usuario`     | Insertar nuevo usuario       |
+| `PUT`    | `/api/admin/usuario/:id` | Actualizar usuario por ID    |
+| `DELETE` | `/api/admin/usuario/:id` | Eliminar usuario por ID      |
 
 ---
 
