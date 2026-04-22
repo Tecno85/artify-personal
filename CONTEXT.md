@@ -27,9 +27,9 @@ Permite a los usuarios editar imágenes directamente en el navegador con autenti
 - React (próxima actividad)
 
 ### Backend
-| Backend | Framework | Puerto | Estado |
-|---------|-----------|--------|--------|
-| Node.js + Express | Express.js | 3000 | ✅ Oficial y único |
+| Backend           | Framework  | Puerto | Estado            |
+| ----------------- | ---------- | ------ | ----------------- |
+| Node.js + Express | Express.js | 3000   | ✅ Oficial y único |
 
 ### Base de datos
 - MySQL 8.0+
@@ -118,28 +118,28 @@ v_usuarios_activos → resumen de USUARIO + IMAGEN + SESION_EDICION
 ## 5. Endpoints Implementados
 
 ### Autenticación
-| Método | Ruta | Descripción |
-|--------|------|-------------|
-| POST | `/api/login` | Login con bcrypt. Devuelve rol del usuario |
-| POST | `/api/registro` | Registro con bcrypt |
+| Método | Ruta            | Descripción                                |
+| ------ | --------------- | ------------------------------------------ |
+| POST   | `/api/login`    | Login con bcrypt. Devuelve rol del usuario |
+| POST   | `/api/registro` | Registro con bcrypt                        |
 
 ### Panel de Administración (CRUD sobre USUARIO)
-| Método | Ruta | Descripción |
-|--------|------|-------------|
-| GET | `/api/admin/usuarios` | Lista todos los usuarios |
-| POST | `/api/admin/usuario` | Agrega usuario nuevo |
-| PUT | `/api/admin/usuario/:id` | Edita usuario por ID |
+| Método | Ruta                     | Descripción               |
+| ------ | ------------------------ | ------------------------- |
+| GET    | `/api/admin/usuarios`    | Lista todos los usuarios  |
+| POST   | `/api/admin/usuario`     | Agrega usuario nuevo      |
+| PUT    | `/api/admin/usuario/:id` | Edita usuario por ID      |
 | DELETE | `/api/admin/usuario/:id` | Elimina usuario (cascada) |
 
 ### Sesiones y operaciones
-| Método | Ruta | Descripción |
-|--------|------|-------------|
-| POST | `/api/sesion/iniciar` | Inicia sesión de edición |
-| POST | `/api/sesion/cerrar` | Cierra sesión de edición |
-| POST | `/api/operacion` | Registra operación de edición |
-| POST | `/api/imagen` | Registra imagen procesada |
-| GET | `/api/estadisticas/:id` | Estadísticas del usuario |
-| POST | `/api/admin/login` | Login del panel admin |
+| Método | Ruta                    | Descripción                   |
+| ------ | ----------------------- | ----------------------------- |
+| POST   | `/api/sesion/iniciar`   | Inicia sesión de edición      |
+| POST   | `/api/sesion/cerrar`    | Cierra sesión de edición      |
+| POST   | `/api/operacion`        | Registra operación de edición |
+| POST   | `/api/imagen`           | Registra imagen procesada     |
+| GET    | `/api/estadisticas/:id` | Estadísticas del usuario      |
+| POST   | `/api/admin/login`      | Login del panel admin         |
 
 ---
 
@@ -299,6 +299,14 @@ mysql -u root -p < database/artify_db.sql
 - El backend oficial es **Node.js + Express**
 - Las tablas usan MAYÚSCULAS por convención del instructor del SENA
 - `CLAUDE.md` se llama internamente **Skill Artify** y contiene el contexto detallado del proyecto
+
+---
+
+## 13. Últimos Cambios (para la IA)
+
+- [2026-04-08] Eliminados backends de Python/Flask
+- [2026-04-08] Agregado SKILL_ARTIFY.md
+- [2026-04-07] Completada la migración de documentación
 
 ---
 
