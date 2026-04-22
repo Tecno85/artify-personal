@@ -93,7 +93,7 @@ loginForm.addEventListener('submit', (e) => {
     btnLogin.textContent = 'Iniciando sesión...';
 
     // Autenticación con backend
-    fetch('http://localhost:3002/api/login', {
+    fetch('http://localhost:3000/api/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

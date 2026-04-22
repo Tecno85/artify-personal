@@ -1,42 +1,81 @@
+# ----------------------------------------
+# 1. DEPENDENCIAS Y PAQUETES
+# ----------------------------------------
+node_modules/
+package-lock.json        # (Opcional: Descomenta si no quieres lock en el repo)
+
+# Python
+__pycache__/
+*.py[cod]
+
+# ----------------------------------------
+# 2. ENTORNO Y CONFIGURACIÓN SENSIBLE
+# ----------------------------------------
+.env
+.env.local
+.env.*.local
+
+# ----------------------------------------
+# 3. BUILD Y DISTRIBUCIÓN
+# ----------------------------------------
+dist/
+dist-ssr/
+build/
+
+# ----------------------------------------
+# 4. LOGS Y TEMPORALES
+# ----------------------------------------
+# Logs de gestores de paquetes
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Archivos temporales de sistema/editores
+*.tmp
+*.swp
+*.swo
+*~
+*.bak
+*.backup
+
+# Archivo específico de VSCode (temp runner)
+tempCodeRunnerFile.js
+
+# ----------------------------------------
+# 5. SISTEMAS OPERATIVOS
+# ----------------------------------------
 # macOS
 .DS_Store
+.AppleDouble
+.LSOverride
 ._*
 .Spotlight-V100
 .Trashes
 .fseventsd
 
-# VS Code
-.vscode/
-
-# Archivos temporales
-*.log
-*.tmp
-*.swp
-*.swo
-
-# Node modules
-node_modules/
-
-# Archivos de respaldo de editores
-*~
-*.bak
-*.backup
-
-# Carpetas de sistema
+# Windows
 Thumbs.db
-desktop.ini
+ehthumbs.db
+Desktop.ini
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
 
-tempCodeRunnerFile.js
+# ----------------------------------------
+# 6. EDITORES E IDES
+# ----------------------------------------
+# Visual Studio Code
+.vscode/
+!.vscode/extensions.json   # Excepción: Permitimos compartir recomendaciones
 
-# Python
-__pycache__/
-*.pyc
-*.pyo
+# JetBrains (IntelliJ, WebStorm, etc.)
+.idea/
 
-# Variables de entorno - NUNCA subir a GitHub
-.env
-.env.local
-.env.production
-
-# Package lock 
-package-lock.json
+# Otros (Sublime, Vim, etc.)
+*.sublime-*
