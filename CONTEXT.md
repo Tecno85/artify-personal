@@ -45,7 +45,6 @@ Artify/
 ├── CONTEXT.md              # Este archivo
 ├── .gitignore
 ├── .env.example            # Plantilla de variables de entorno
-├── package.json            # Scripts globales del proyecto
 │
 ├── frontend/
 │   ├── index.html
@@ -56,24 +55,21 @@ Artify/
 │   │   └── admin.html      # Panel de administración CRUD
 │   └── assets/
 │       ├── css/            # admin.css, editor.css, login.css, registro.css, index.css
-│       └── js/             # admin.js, editor.js, login.js, registro.js
+│       └── js/             # auth.js, admin.js, editor.js, login.js, registro.js
 │
-├── backend/                # Node.js + Express (puerto 3000)
-│   ├── server.js
+├── backend/                # Node.js + Express modular (puerto 3000)
+│   ├── config/             # Configuración de conexión a MySQL
+│   ├── controllers/        # Lógica por recurso
+│   ├── middlewares/        # Tokens, roles y validaciones de acceso
+│   ├── routes/             # Endpoints por dominio
+│   ├── utils/              # Helpers de token y configuración
+│   ├── server.js           # Arranque del servidor y montaje de rutas
 │   ├── .env
-│   ├── .env.example
 │   ├── package.json
-│   ├── package-lock.json
-│   └── node_modules/
+│   └── package-lock.json
 │
 ├── database/
 │   └── artify_db.sql       # Script SQL completo
-│
-├── config/                 # Configuración centralizada
-│   └── constants.js        # Constantes y valores globales
-│
-├── tests/                  # Pruebas automatizadas (a desarrollar)
-│   └── api.test.js         # Tests de endpoints
 │
 ├── scripts/                # Automatización
 │   └── setup.sh            # Script de configuración inicial
@@ -126,10 +122,10 @@ v_usuarios_activos → resumen de USUARIO + IMAGEN + SESION_EDICION
 ## 5. Endpoints Implementados
 
 ### Autenticación
-| Método | Ruta            | Descripción                                |
-| ------ | --------------- | ------------------------------------------ |
-| POST   | `/api/login`    | Login con bcrypt. Devuelve rol del usuario |
-| POST   | `/api/registro` | Registro con bcrypt                        |
+| Método | Ruta            | Descripción                                                |
+| ------ | --------------- | ---------------------------------------------------------- |
+| POST   | `/api/login`    | Login con bcrypt. Devuelve usuario autenticado y token     |
+| POST   | `/api/registro` | Registro con bcrypt                                        |
 
 ### Panel de Administración (CRUD sobre USUARIO)
 | Método | Ruta                     | Descripción               |
@@ -138,7 +134,7 @@ v_usuarios_activos → resumen de USUARIO + IMAGEN + SESION_EDICION
 | POST   | `/api/admin/usuario`     | Agrega usuario nuevo      |
 | PUT    | `/api/admin/usuario/:id` | Edita usuario por ID      |
 | DELETE | `/api/admin/usuario/:id` | Elimina usuario (cascada) |
-| POST   | `/api/admin/login`       | Login del panel admin     |
+| POST   | `/api/admin/login`       | Login del panel admin con token |
 
 ### Sesiones y Operaciones
 | Método | Ruta                    | Descripción                   |
@@ -164,6 +160,7 @@ v_usuarios_activos → resumen de USUARIO + IMAGEN + SESION_EDICION
 ### Autenticación y roles
 - ✅ Registro con bcrypt
 - ✅ Login con validación bcrypt
+- ✅ Tokens firmados por backend para rutas protegidas
 - ✅ Redirección por rol: `admin` → `admin.html`, `usuario` → `editor.html`
 - ✅ Control de sesión activa
 - ✅ Cierre automático de sesiones inactivas (cron job, 8h límite)
@@ -209,43 +206,7 @@ if (data.usuario.rol === 'admin') {
 
 ---
 
-## 8. Convenciones de Código
-
-### JavaScript / Node.js
-- Variables y funciones: `camelCase`
-- Constantes: `UPPER_SNAKE_CASE`
-- Archivos y carpetas: `kebab-case`
-- Comentarios de sección: `// ========== NOMBRE ==========`
-- Logs con emojis: `✅ ❌ 📨 🎉 📊`
-- Idioma: español (excepto términos técnicos: API, JWT, SQL, ID, REST)
-
-### Commits (Conventional Commits en español)
-```bash
-feat(scope): nueva funcionalidad
-fix(scope): corrección de error
-docs: cambio en documentación
-style: cambio de estilos
-chore: mantenimiento
-refactor: mejora sin cambio funcional
-```
-
-### Formato de respuestas API
-```javascript
-{
-  ok: boolean,           // true = éxito, false = error
-  mensaje: string,       // Descripción legible
-  data?: any,            // Opcional: datos de respuesta
-  meta?: {               // Opcional: metadata
-    timestamp: string,
-    total: number
-  },
-  error?: string         // Opcional: solo en errores 500
-}
-```
-
----
-
-## 9. Variables de Entorno
+## 8. Variables de Entorno
 
 ### Backend Node.js (`backend/.env`)
 ```env
@@ -266,95 +227,43 @@ NODE_ENV=development
 
 ---
 
-## 10. Cómo Correr el Proyecto
+## 9. Operación Local
 
-### Automatizado (Recomendado)
-```bash
-# Desde raíz del proyecto
-bash scripts/setup.sh
-```
-
-### Manual
-
-**Backend Node.js:**
-```bash
-cd backend
-npm install
-node server.js
-# Corre en http://localhost:3000
-```
-
-**Frontend HTML:**
-```bash
-# Desde la raíz del proyecto
-npx http-server -p 8080
-# Abrir http://127.0.0.1:8080
-```
-
-**Base de datos:**
-```bash
-mysql -u root -p < database/artify_db.sql
-```
+- Para instalación y arranque, consulta `README.md`.
+- Este archivo solo mantiene la referencia del estado actual del proyecto y de los endpoints activos.
+- Las pruebas rápidas recomendadas son:
+  - login usuario
+  - login admin
+  - eliminación de usuario desde admin
+  - analytics públicas sin token
 
 ---
 
-## 11. Pruebas
+## 10. Versionamiento con Git
 
-### Con Postman
-1. Descargar Postman (postman.com)
-2. Crear request GET a: `http://localhost:3000/api/v1/analytics/filtros-populares`
-3. Hacer click "Send"
-4. Ver respuesta JSON
-
-### Con cURL
-```bash
-curl http://localhost:3000/api/v1/analytics/filtros-populares
-```
+- Se usa flujo con ramas `feature/*` y Pull Requests.
+- Los commits siguen la convención `tipo(scope): descripción`.
 
 ---
 
-## 12. Versionamiento con Git
-
-### Flujo estándar
-```bash
-# 1. Crear rama de feature
-git checkout -b feat/nombre-feature
-
-# 2. Hacer cambios y commits
-git add .
-git commit -m "feat(scope): descripción"
-
-# 3. Push a rama
-git push origin feat/nombre-feature
-
-# 4. Crear Pull Request en GitHub
-
-# 5. Mergear a main cuando esté listo
-git checkout main
-git pull origin main
-```
-
----
-
-## 13. Notas Importantes
+## 11. Notas Importantes
 
 - Las contraseñas siempre se encriptan con **bcrypt**
-- La eliminación de usuarios es en **cascada**: IMAGEN → OPERACION → SESION_EDICION → CONFIGURACION → USUARIO
-- El backend oficial es **Node.js + Express**
+- La eliminación de usuarios se ejecuta en **transacción** y en este orden: OPERACION → SESION_EDICION → IMAGEN → CONFIGURACION → USUARIO
+- El backend oficial es **Node.js + Express modular**
 - Las tablas usan MAYÚSCULAS por convención del instructor del SENA
 - Todos los endpoints tienen comentarios detallados en el código
 - La API REST Analytics es consumible por e-commerce externos
 
 ---
 
-## 14. Historial de Cambios Recientes
+## 12. Historial de Cambios Recientes
 
 - [2026-04-22] Reorganización de estructura del proyecto
+- [2026-04-22] Modularización del backend y protección de rutas con token
 - [2026-04-22] Creación de API REST Analytics (4 endpoints)
 - [2026-04-22] Creación de scripts de automatización (setup.sh)
-- [2026-04-22] Adición de carpeta config/ para constantes
-- [2026-04-22] Adición de carpeta tests/ para pruebas
-- [2026-04-21] Comentarización completa de server.js
+- [2026-04-21] Normalización de comentarios en backend modular y auth frontend
 - [2026-04-20] Creación de documentación API_ANALYTICS.md
 
 ---
