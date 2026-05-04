@@ -25,19 +25,24 @@
 
 ## 1. Estructura y Organización de Archivos
 
-La estructura real y completa del repositorio vive en `CONTEXT.md`.
-Aquí solo se conserva un mapa mínimo para entender los ejemplos de código:
+### Estructura del proyecto
 
 ```
 Artify/
 ├── frontend/
-└── backend/
-    ├── config/
-    ├── controllers/
-    ├── middlewares/
-    ├── routes/
-    ├── utils/
-    └── server.js
+│   ├── assets/
+│   │   ├── css/
+│   │   ├── fonts/
+│   │   ├── icons/
+│   │   ├── images/
+│   │   └── js/
+│   └── pages/
+├── backend/
+│   └── server.js     → Servidor Node.js con Express
+├── docs/             → Documentación del proyecto
+├── .env              → Variables de entorno (no se sube a GitHub)
+├── .gitignore        → Archivos ignorados por Git
+└── README.md         → Descripción del proyecto
 ```
 
 ### Reglas de organización
@@ -100,7 +105,7 @@ let b1, b2, b3;
 ### Variables del backend — camelCase
 
 ```javascript
-// ✅ Correcto — tomado del backend modular
+// ✅ Correcto — tomado de server.js
 const { correo, password } = req.body;
 const passwordValida = bcrypt.compareSync(password, usuario.usr_contrasena);
 const queryAcceso = `UPDATE USUARIO SET ...`;
@@ -215,7 +220,7 @@ window.abrirEliminar = function(id, nombre) {
 ### Objetos de configuración — camelCase
 
 ```javascript
-// ✅ Correcto — tomado del backend modular
+// ✅ Correcto — tomado de server.js
 const db = mysql2.createConnection({
   host:     process.env.DB_HOST,
   user:     process.env.DB_USER,
@@ -235,7 +240,7 @@ let cropArea = {
 ### Objetos de respuesta del backend — camelCase
 
 ```javascript
-// ✅ Correcto — tomado del backend modular
+// ✅ Correcto — tomado de server.js
 res.json({
   mensaje: 'Login exitoso',
   usuario: {
@@ -251,7 +256,7 @@ res.json({
 ### Objetos de configuración por defecto
 
 ```javascript
-// ✅ Correcto — tomado del backend modular
+// ✅ Correcto — tomado de server.js
 const configDefecto = JSON.stringify({
   notificaciones:  true,
   formatoDefecto:  'png',
@@ -447,7 +452,7 @@ try {
 ### Logs en consola — con emojis descriptivos
 
 ```javascript
-// ✅ Correcto — tomado del backend modular y admin.js
+// ✅ Correcto — tomado de server.js y admin.js
 console.log('✅ Conectado a MySQL correctamente');
 console.log('🎉 Login exitoso para:', usuario.usr_nombres);
 console.log('👤 Rol:', usuario.usr_rol);
@@ -469,7 +474,7 @@ console.log(err);
 ### Organización de endpoints
 
 ```javascript
-// ✅ Correcto — tomado del backend modular
+// ✅ Correcto — tomado de server.js
 // ========== DEPENDENCIAS ==========
 // ========== CONFIGURACIÓN ==========
 // ========== CONEXIÓN A MYSQL ==========
@@ -482,7 +487,7 @@ console.log(err);
 ### Variables de entorno — process.env
 
 ```javascript
-// ✅ Correcto — tomado del backend modular
+// ✅ Correcto — tomado de server.js
 const db = mysql2.createConnection({
   host:     process.env.DB_HOST,
   user:     process.env.DB_USER,
@@ -502,7 +507,7 @@ const db = mysql2.createConnection({
 ### Respuestas del servidor — mensajes en español
 
 ```javascript
-// ✅ Correcto — tomado del backend modular
+// ✅ Correcto — tomado de server.js
 return res.status(401).json({ mensaje: 'Usuario no encontrado' });
 return res.status(401).json({ mensaje: 'Contraseña incorrecta' });
 return res.status(500).json({ mensaje: 'Error en el servidor' });
@@ -516,7 +521,7 @@ res.json({ mensaje: 'Usuario eliminado correctamente' });
 ### Estructura de callbacks de MySQL
 
 ```javascript
-// ✅ Correcto — tomado del backend modular
+// ✅ Correcto — tomado de server.js
 db.query(query, [params], (err, results) => {
   if (err) {
     console.error('❌ Error en la consulta:', err.message);
@@ -583,7 +588,7 @@ opr_fecha_hora
 ### Consultas SQL — multilínea con indentación
 
 ```javascript
-// ✅ Correcto — tomado del backend modular
+// ✅ Correcto — tomado de server.js
 const query = `
   SELECT usr_id_usuario, usr_nombres, usr_apellidos,
          usr_cedula, usr_correo, usr_estado_usuario, usr_rol
@@ -644,7 +649,7 @@ WHERE u.usr_estado_usuario = 'activo';
 ### Comentarios explicativos — antes del bloque
 
 ```javascript
-// ✅ Correcto — tomado del backend modular
+// ✅ Correcto — tomado de server.js
 // Buscar usuario en la base de datos
 const query = 'SELECT * FROM USUARIO WHERE usr_correo = ?';
 

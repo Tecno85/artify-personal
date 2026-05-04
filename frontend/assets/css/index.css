@@ -1,4 +1,4 @@
-/* ========== Fuentes personalizadas ========== */
+/* ========== Fuentes personalizada Anek Latin ========== */
 @font-face {
   font-family: 'Paytone One';
   src: url(../fonts/Paytone_One/PaytoneOne-Regular.ttf) format('truetype');
@@ -35,7 +35,7 @@ body {
   min-height: 100vh;
   width: 100%;
   color: whitesmoke;
-  font-family: 'Inconsolata', sans-serif;
+  font-family: 'Anek Latin', sans-serif;
   background: #0a0a0a;
 }
 
@@ -79,22 +79,23 @@ header {
   justify-content: center;
   align-items: center;
   border-radius: 8px;
+  transition: all 0.5s ease;
+}
+
+.enlace a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: aliceblue;
   text-decoration: none;
   gap: 8px;
   padding: 8px 14px;
-  transition: all 0.5s ease;
 }
 
 .btn:hover {
   background: rgba(255, 255, 255, 0.1);
   border: 2px solid #e34800;
   transform: translateX(-5px);
-}
-
-.btn:focus-visible {
-  outline: 2px solid #e34800;
-  outline-offset: 4px;
 }
 
 /* ==========  Main ========== */
@@ -357,8 +358,8 @@ p b {
   }
 }
 
-/* ========== MEDIA QUERY 1366×768 ========== */
-@media (min-width: 769px) and (max-width: 1199px) {
+/* ========== MEDIA QUERIE  1366×768 (Solo laptops, NO ventana dividida) ========== */
+/* @media (min-width: 769px) and (max-width: 1199px) {
   .container {
     padding: 25px 20px;
     gap: 10px;
@@ -440,10 +441,10 @@ p b {
     font-size: 0.9rem;
     padding: 2px;
   }
-}
+} */
 
-/* ========== MODO COMPACTO 1024px y menos ========== */
-@media (max-width: 1024px) {
+/* MODO COMPACTO – 1024px y menos */
+/* @media (max-width: 1024px) {
   header {
     display: flex;
     flex-direction: column;
@@ -476,10 +477,10 @@ p b {
     margin-top: 0px;
     padding-top: 0px;
   }
-}
+} */
 
-/* ========== TABLETS 768px ========== */
-@media (max-width: 768px) {
+/* TABLETS (768px) */
+/* @media (max-width: 768px) {
   .container {
     padding: 20px 15px;
     gap: 25px;
@@ -504,10 +505,10 @@ p b {
   footer p {
     font-size: 0.9rem;
   }
-}
+} */
 
-/* ========== MÓVILES 480px ========== */
-@media (max-width: 480px) {
+/* MÓVILES (480px) */
+/* @media (max-width: 480px) {
   .container {
     padding: 15px 10px;
   }
@@ -548,5 +549,7 @@ p b {
     flex-wrap: wrap;
     text-align: center;
   }
-}
+}  */
   
+
+/* 1536 x 695 */
