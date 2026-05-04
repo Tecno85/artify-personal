@@ -101,9 +101,9 @@
                      │ HTTP / REST API
 ┌────────────────────▼────────────────────────────┐
 │                   BACKEND                        │
-│      Node.js + Express modularizado             │
-│  server.js monta middlewares, rutas y limpieza  │
-│  Módulos: config, controllers, routes, utils    │
+│         Node.js + Express (server.js)           │
+│  Endpoints: /api/login, /api/registro,          │
+│  /api/sesion, /api/operacion, /api/admin/*      │
 └────────────────────┬────────────────────────────┘
                      │ mysql2
 ┌────────────────────▼────────────────────────────┐
@@ -152,26 +152,14 @@ Artify/
 │       ├── icons/              # Iconos SVG
 │       └── images/             # Imágenes del proyecto
 │
-├── backend/                    # Servidor Node.js modular
-│   ├── config/                 # Conexión y configuración base
-│   ├── controllers/            # Lógica de negocio por módulo
-│   ├── middlewares/            # Autenticación y autorización
-│   ├── routes/                 # Endpoints por dominio
-│   ├── utils/                  # Helpers compartidos
-│   ├── server.js               # Punto de arranque y montaje
+├── backend/                    # Servidor Node.js
+│   ├── server.js               # Servidor Express con todos los endpoints
 │   ├── .env                    # Variables de entorno (no se sube a GitHub)
-│   └── package.json            # Dependencias del backend
-│
-├── database/                   # Base de datos del proyecto
-│   └── artify_db.sql           # Script SQL completo
-│
-├── scripts/                    # Automatización
-│   └── setup.sh                # Configuración inicial
+│   ├── package.json            # Dependencias del proyecto
+│   └── node_modules/           # Módulos instalados (ignorado por Git)
 │
 └── docs/                       # Documentación técnica
-    ├── API_ANALYTICS.md
-    ├── CODING_STANDARDS.md     # Estándares de codificación
-    └── SKILL_ARTIFY.md         # Buenas prácticas del proyecto
+    └── CODING_STANDARDS.md     # Estándares de codificación
 ```
 
 ---
@@ -228,9 +216,15 @@ Luego ejecuta el script SQL del proyecto para crear todas las tablas.
 ### 5. Iniciar el backend
 
 ```bash
-cd backend
 node server.js
 ```
+
+### 6. Abrir el frontend
+
+El frontend quedó organizado completamente dentro de `frontend/`.
+
+- Si lo abres en navegador manualmente, usa `frontend/index.html`.
+- Si usas un servidor estático, apunta la raíz del sitio a la carpeta `frontend/`.
 
 Debes ver:
 ```
@@ -243,7 +237,7 @@ Debes ver:
 En una terminal separada desde la raíz del proyecto:
 
 ```bash
-npx http-server frontend -p 8080
+npx http-server -p 8080
 ```
 
 ### 7. Abrir en el navegador
@@ -252,18 +246,16 @@ npx http-server frontend -p 8080
 http://127.0.0.1:8080
 ```
 
-Si prefieres abrir archivos manualmente, usa `frontend/index.html`, pero para probar rutas y navegación es mejor servir la carpeta `frontend/` por HTTP.
-
 ---
 
 ## 🎯 Uso
 
 ### Usuario normal
-1. Abre `http://127.0.0.1:8080`
+1. Abre `frontend/index.html`
 2. Regístrate en `frontend/pages/registro.html`
 3. Inicia sesión en `frontend/pages/login.html`
-4. El sistema te redirige automáticamente al editor
-5. Edita tus imágenes y descárgalas
+3. El sistema te redirige automáticamente al editor
+4. Edita tus imágenes y descárgalas
 
 ### Administrador
 1. Inicia sesión con las credenciales de administrador
@@ -277,7 +269,7 @@ Si prefieres abrir archivos manualmente, usa `frontend/index.html`, pero para pr
 ### Cargar Imagen
 - **Drag & Drop** — Arrastra una imagen al área punteada
 - **Selector de archivos** — Haz clic en "Subir Imagen"
-- **Formatos soportados** — JPG, PNG, WebP
+- **Formatos soportados** — JPG, PNG, WebP, AVIF
 - **Tamaño máximo** — 10 MB
 
 ### Herramientas de Edición
@@ -419,13 +411,13 @@ Las contribuciones son bienvenidas. Por favor:
 
 ## 🔮 Roadmap Futuro
 
-- [ ] Agregar pruebas automatizadas para frontend y backend
+- [ ] Implementar JWT para protección de endpoints
 - [ ] Paginación en el historial de operaciones
 - [ ] Más filtros avanzados (blur, sharpen, pixelate)
 - [ ] Herramienta de texto sobre imágenes
 - [ ] Exportación a PDF
 - [ ] Procesamiento por lotes
-- [ ] Despliegue en producción (Railway)
+- [ ] Despliegue en producción (Railway + PlanetScale)
 - [ ] Integración con servicios en la nube
 
 ---
